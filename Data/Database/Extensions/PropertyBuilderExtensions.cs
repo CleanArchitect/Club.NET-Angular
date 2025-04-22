@@ -9,6 +9,5 @@ public static class PropertyBuilderExtensions
             .HasConversion(
                 entityValue => entityValue.ToArray(),
                 databaseValue => databaseValue.ToList(),
-                new ShortListValueComparer()
-            );
+                new ShortListValueComparer());
 }
