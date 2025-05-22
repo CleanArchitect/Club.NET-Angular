@@ -1,4 +1,4 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,7 +12,7 @@ public sealed class DeelnemersController(IInputHandler handler) : CleanControlle
 {
     [HttpPost]
     public async Task<ActionResult<CreateKnwuWedstrijdDeelnemerOutput>> Create(Guid wedstrijdId, CreateKnwuWedstrijdDeelnemerInput input) =>
-        CreatedAtAction(nameof(Get), await handler.HandleAsync(input), ("id", output => output.Id), ("wedstrijdId", _ => wedstrijdId));
+        CreatedOutputAt(nameof(Get), await handler.HandleAsync(input), ("wedstrijdId", wedstrijdId));
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<GetKnwuWedstrijdDeelnemerOutput>> Get(Guid id) =>

@@ -12,7 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Clean.Net" Version="8.0.1" />
         <PackageReference Include="ClosedXML" Version="0.104.2" />
-        <PackageReference Include="Smits.Clean.Core" Version="8.1.5" />
+        <PackageReference Include="FluentValidation" Version="12.0.0" />
     </ItemGroup>
 </Project>

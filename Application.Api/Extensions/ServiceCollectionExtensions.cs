@@ -6,7 +6,7 @@ namespace Application.Api;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCorsPolicies(this IServiceCollection services, IEnumerable<CorsConfiguration> corsSettings)
+    public static IServiceCollection AddCorsPolicies(this IServiceCollection services, IEnumerable<CorsSettings> corsSettings)
     {
         corsSettings
             .ToList()

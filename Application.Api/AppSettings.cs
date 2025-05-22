@@ -1,25 +1,28 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+﻿using Clean.Net;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Application.Api;
 
-internal sealed class AppConfiguration
+internal sealed class AppSettings : Settings
 {
+    [Required]
     public string Connectionstring { get; private set; }
 
-    public string DefaultPolicyName => Cors.First().Key;
+    public string DefaultPolicyName => Cors.FirstOrDefault().Key;
 
-    public IReadOnlyCollection<CorsConfiguration> CorsConfiguration => Cors
-        .Select(keyValuePair => new CorsConfiguration(keyValuePair.Key, keyValuePair.Value))
+    public IReadOnlyCollection<CorsSettings> CorsConfiguration => Cors?
+        .Select(keyValuePair => new CorsSettings(keyValuePair.Key, keyValuePair.Value))
         .ToList()
         .AsReadOnly();
 
     private Dictionary<string, string[]> Cors { get; set; }
 }
 
-internal sealed class CorsConfiguration(string name, string[] origins)
+internal sealed class CorsSettings(string name, string[] origins)
 {
     public string Name { get; private set; } = name;
 

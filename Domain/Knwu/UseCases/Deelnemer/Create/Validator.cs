@@ -1,4 +1,4 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 using FluentValidation;
 
 namespace Domain;
@@ -20,7 +20,7 @@ internal sealed class CreateKnwuWedstrijdDeelnemerInputValidator : AbstractValid
 
         RuleFor(input => input.KnwuId)
             .Length(8)
-            .DigitsOnly()
+            //.DigitsOnly()
             .When(input => input.UciId == null);
 
         RuleFor(input => input.UciId)

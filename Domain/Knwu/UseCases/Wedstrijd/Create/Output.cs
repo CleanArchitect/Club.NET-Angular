@@ -1,8 +1,8 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 
 namespace Domain;
 
-public sealed class CreateKnwuWedstrijdOutput : IOutput
+public sealed class CreateKnwuWedstrijdOutput : ICreatedOutput
 {
     public Guid? Id { get; }
 

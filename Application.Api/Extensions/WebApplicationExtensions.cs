@@ -1,11 +1,11 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 using Data;
 using Domain;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Application.Api;
 
@@ -13,27 +13,26 @@ internal static class WebApplicationExtensions
 {
     public static WebApplication Configure(this WebApplicationBuilder builder)
     {
-        var appConfiguration = builder.Configuration
-            .Get<AppConfiguration>(options => options.BindNonPublicProperties = true);
+        var appSettings = builder.Configuration.GetAppSettings<AppSettings>();
 
         builder.Services
-            .AddControllers(options => options.Conventions.Add(new RouteTokenTransformerConvention(new KebabCaseParameterTransformer())));
+            .AddControllers(options => options.Conventions.Add(new RouteTokenTransformerConvention(new KebabCaseOutboundParameterTransformer())));
 
         builder.Services
-            .AddData(appConfiguration.Connectionstring, builder.Environment)
+            .AddData(appSettings.Connectionstring, builder.Environment.IsProduction())
             .AddDomain();
 
         builder.Services
-            .AddCorsPolicies(appConfiguration.CorsConfiguration)
-            .AddSwaggerGen()
-            .AddFluentValidationAutoValidation();
+            .AddCorsPolicies(appSettings.CorsConfiguration)
+            .AddSwaggerGen();
+        //.AddFluentValidationAutoValidation();
 
         return builder
             .Build()
-            .UseServices(appConfiguration);
+            .UseServices(appSettings);
     }
 
-    private static WebApplication UseServices(this WebApplication app, AppConfiguration appsettings)
+    private static WebApplication UseServices(this WebApplication app, AppSettings appsettings)
     {
         app
             .UseCors(appsettings.DefaultPolicyName)

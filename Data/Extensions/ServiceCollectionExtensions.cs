@@ -1,17 +1,15 @@
-﻿using Clean.Core;
-using Microsoft.AspNetCore.Hosting;
+﻿using Clean.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace Data;
 
 public static class DataServiceCollectionExtensions
 {
-    public static IServiceCollection AddData(this IServiceCollection services, string connectionString, IWebHostEnvironment environment) =>
+    public static IServiceCollection AddData(this IServiceCollection services, string connectionString, bool enableErrorDetails) =>
         services
-            .AddCleanEntityFramework<ClubDbContext>(options => options
-                .EnableDetailedErrors(!environment.IsProduction())
+            .AddCleanInfrastructure<ClubDbContext>(options => options
+                .EnableDetailedErrors(enableErrorDetails)
                 .UseLazyLoadingProxies()
                 .UseSnakeCaseNamingConvention()
                 .UseNpgsql(connectionString, options =>

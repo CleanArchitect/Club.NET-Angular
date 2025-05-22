@@ -1,4 +1,4 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 using ClosedXML.Excel;
 
 namespace Domain;
@@ -19,19 +19,6 @@ internal sealed class ExportExcelKnwuWedstrijdUseCase(IEntityGateway<KnwuWedstri
             .Worksheet.Columns()
             .AdjustToContents();
 
-        return new ExportExcelKnwuWedstrijdOutput(workbook.SaveAsBytes(), $"{wedstrijd.Naam}-export_{DateTime.Now:dd-MM-yyyy HH:mm}.xlsx");
-    }
-}
-
-public static class IXLWorksheetExtensions
-{
-    public static IXLWorksheet AddHeader(this IXLWorksheet worksheet, IEnumerable<string> columns)
-    {
-        columns
-            .Select((value, index) => new { value, index })
-            .ToList()
-            .ForEach(item => worksheet.Cell(1, item.index + 1).Value = item.value);
-
-        return worksheet;
+        return Output.File(workbook.SaveAsBytes(), $"{wedstrijd.Naam}-export_{DateTime.Now:dd-MM-yyyy HH:mm}.xlsx");
     }
 }

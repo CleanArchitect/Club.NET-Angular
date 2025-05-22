@@ -1,8 +1,8 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 
 namespace Domain;
 
-public sealed class CreateKnwuWedstrijdDeelnemerInput : IInput
+public sealed class CreateKnwuWedstrijdDeelnemerInput : ICreateInput
 {
     public Guid WedstrijdId { get; set; }
 

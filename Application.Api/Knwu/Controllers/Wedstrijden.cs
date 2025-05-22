@@ -1,4 +1,4 @@
-﻿using Clean.Core;
+﻿using Clean.Net;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,7 +12,7 @@ public sealed class WedstrijdenController(IInputHandler handler) : CleanControll
 {
     [HttpPost]
     public async Task<ActionResult<CreateKnwuWedstrijdOutput>> Create(CreateKnwuWedstrijdInput input) =>
-        CreatedAtAction(nameof(Get), await handler.HandleAsync(input), ("id", x => x.Id));
+        CreatedOutputAt(nameof(Get), await handler.HandleAsync(input));
 
     [HttpGet]
     public async Task<ActionResult<GetAllKnwuWedstrijdenOuput>> GetAll() =>
@@ -24,9 +24,9 @@ public sealed class WedstrijdenController(IInputHandler handler) : CleanControll
 
     [HttpGet("{id:guid}/export")]
     public async Task<FileResult> Export(Guid id) =>
-        File(await handler.HandleAsync(new ExportExcelKnwuWedstrijdInput(id)) as IFileOutput);
+        FileOutput(await handler.HandleAsync(new ExportExcelKnwuWedstrijdInput(id)));
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id) =>
-        NoContent(await handler.HandleAsync(new DeleteKnwuWedstrijdInput(id)));
+        NoContentOutput(await handler.HandleAsync(new DeleteKnwuWedstrijdInput(id)));
 }
