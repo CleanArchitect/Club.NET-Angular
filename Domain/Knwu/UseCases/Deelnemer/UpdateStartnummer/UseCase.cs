@@ -3,9 +3,9 @@
 namespace Domain;
 
 internal sealed class UpdateKnwuWedstrijdDeelnemerStartnummerUseCase(IEntityGateway<KnwuWedstrijd> wedstrijdGateway)
-    : IUseCase<UpdateKnwuWedstrijdDeelnemerStartnummerInput>
+    : IUseCase<UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput>
 {
-    public async Task<IOutput> ExecuteAsync(UpdateKnwuWedstrijdDeelnemerStartnummerInput input)
+    public async Task<IOutput> ExecuteAsync(UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput input)
     {
         var wedstrijd = await wedstrijdGateway.FindAsync(input.WedstrijdId);
 
@@ -13,6 +13,6 @@ internal sealed class UpdateKnwuWedstrijdDeelnemerStartnummerUseCase(IEntityGate
 
         await wedstrijdGateway.SaveChangesAsync();
 
-        return new UpdateKnwuWedstrijdDeelnemerStartnummerOutput(deelnemer);
+        return new UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput(deelnemer);
     }
 }

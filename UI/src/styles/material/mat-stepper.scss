@@ -1,0 +1,11 @@
+@mixin no-header {
+    &.no-header {
+        .mat-horizontal-stepper-header-container {
+            display: none;
+        }
+    }
+}
+
+.mat-stepper-horizontal {
+    @include no-header();
+}

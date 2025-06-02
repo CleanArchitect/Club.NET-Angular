@@ -2,13 +2,13 @@
 
 namespace Domain;
 
-public sealed class CreateKnwuWedstrijdDeelnemerOutput : IOutput
+public sealed class CreateKnwuWedstrijdCategorieDeelnemerOutput : ICreatedOutput
 {
     public Guid? Id => Deelnemer.Id;
 
     public KnwuWedstrijdDeelnemerModel Deelnemer { get; init; }
 
-    internal CreateKnwuWedstrijdDeelnemerOutput(KnwuWedstrijdDeelnemer deelnemer)
+    internal CreateKnwuWedstrijdCategorieDeelnemerOutput(KnwuWedstrijdCategorieDeelnemer deelnemer)
     {
         Deelnemer = KnwuWedstrijdDeelnemerModel.Create(deelnemer);
     }

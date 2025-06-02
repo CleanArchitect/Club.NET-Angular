@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace Domain;
 
-internal sealed class CreateKnwuWedstrijdDeelnemerInputValidator : AbstractValidator<CreateKnwuWedstrijdDeelnemerInput>
+internal sealed class CreateKnwuWedstrijdCategorieDeelnemerInputValidator : AbstractValidator<CreateKnwuWedstrijdCategorieDeelnemerInput>
 {
     private readonly IEntityGateway<KnwuWedstrijd> wedstrijdGateway;
 
-    public CreateKnwuWedstrijdDeelnemerInputValidator(IEntityGateway<KnwuWedstrijd> wedstrijdGateway)
+    public CreateKnwuWedstrijdCategorieDeelnemerInputValidator(IEntityGateway<KnwuWedstrijd> wedstrijdGateway)
     {
         this.wedstrijdGateway = wedstrijdGateway;
 
@@ -21,16 +21,17 @@ internal sealed class CreateKnwuWedstrijdDeelnemerInputValidator : AbstractValid
         RuleFor(input => input.KnwuId)
             .Length(8)
             //.DigitsOnly()
-            .When(input => input.UciId == null);
+            .When(input => string.IsNullOrWhiteSpace(input.UciId));
 
         RuleFor(input => input.UciId)
             .Matches(@"^(?:[A-Z]{2}\d{9}|\d{11})$")
-            .When(input => input.KnwuId == null);
+            .When(input => string.IsNullOrWhiteSpace(input.KnwuId));
     }
 
-    private bool NotBeRegistered(CreateKnwuWedstrijdDeelnemerInput input) =>
-        !wedstrijdGateway.Find(input.WedstrijdId)
-            .Deelnemers
+    private bool NotBeRegistered(CreateKnwuWedstrijdCategorieDeelnemerInput input) =>
+        !wedstrijdGateway
+            .Find(input.WedstrijdId).Categorieen
+            .Single(categorie => categorie.Id == input.CategorieId).Deelnemers
             .Any(deelnemer =>
                 (deelnemer.KnwuId != null && deelnemer.KnwuId == input.KnwuId) ||
                 (deelnemer.UciId != null && deelnemer.UciId == input.UciId));

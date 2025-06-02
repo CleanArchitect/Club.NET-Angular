@@ -4,10 +4,12 @@ namespace Domain;
 
 public sealed class CreateKnwuWedstrijdOutput : ICreatedOutput
 {
-    public Guid? Id { get; }
+    public Guid? Id => Wedstrijd.Id;
+
+    public KnwuWedstrijdModel Wedstrijd { get; init; }
 
     internal CreateKnwuWedstrijdOutput(KnwuWedstrijd wedstrijd)
     {
-        Id = wedstrijd.Id;
+        Wedstrijd = KnwuWedstrijdModel.Create(wedstrijd);
     }
 }

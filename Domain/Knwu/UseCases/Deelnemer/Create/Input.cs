@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-public sealed class CreateKnwuWedstrijdDeelnemerInput : ICreateInput
+public sealed class CreateKnwuWedstrijdCategorieDeelnemerInput : ICreateInput
 {
     public Guid WedstrijdId { get; set; }
 

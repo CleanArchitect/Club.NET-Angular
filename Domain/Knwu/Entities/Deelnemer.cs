@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-internal class KnwuWedstrijdDeelnemer : Entity
+internal class KnwuWedstrijdCategorieDeelnemer : Entity
 {
     public string KnwuId { get; private set; }
 
@@ -10,21 +10,21 @@ internal class KnwuWedstrijdDeelnemer : Entity
 
     public short Startnummer { get; private set; }
 
-    protected KnwuWedstrijdDeelnemer() { }
+    public virtual KnwuWedstrijdCategorie Categorie { get; private set; }
 
-    private KnwuWedstrijdDeelnemer(CreateKnwuWedstrijdDeelnemerInput input, short startnummer)
+    protected KnwuWedstrijdCategorieDeelnemer() { }
+
+    public KnwuWedstrijdCategorieDeelnemer(CreateKnwuWedstrijdCategorieDeelnemerInput input, KnwuWedstrijdCategorie categorie)
     {
         KnwuId = input.KnwuId;
         UciId = input.UciId;
-        Startnummer = startnummer;
+        Categorie = categorie;
+        Startnummer = categorie.TakeStartnummer();
     }
 
-    public static KnwuWedstrijdDeelnemer Create(CreateKnwuWedstrijdDeelnemerInput input, KnwuWedstrijdCategorie categorie) =>
-        new(input, categorie.TakeStartnummer());
-
-    public KnwuWedstrijdDeelnemer UpdateStartnummer(KnwuWedstrijdCategorie categorie)
+    public KnwuWedstrijdCategorieDeelnemer UpdateStartnummer()
     {
-        Startnummer = categorie.TakeStartnummer();
+        Startnummer = Categorie.TakeStartnummer();
         return this;
     }
 }

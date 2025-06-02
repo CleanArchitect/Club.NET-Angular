@@ -8,7 +8,5 @@ public sealed class CreateKnwuWedstrijdInput : ICreateInput
 
     public string Naam { get; set; }
 
-    public decimal Bedrag { get; set; }
-
     public IEnumerable<CreateKnwuWedstrijdCategorieInput> Categorieen { get; set; }
 }

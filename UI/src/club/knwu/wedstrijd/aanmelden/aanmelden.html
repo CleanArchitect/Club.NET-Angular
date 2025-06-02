@@ -1,0 +1,43 @@
+<mat-stepper class="stepper no-header" linear #stepper>
+    <mat-step label="Deelnemer">
+        <form [formGroup]="deelnemerForm">
+            <mat-form-field>
+                <mat-label>KNWU-ID</mat-label>
+
+                <input matInput placeholder="Scan QR" formControlName="knwuId" (focus)="enableScan('knwuId')" (blur)="scan = false" />
+
+                <mat-icon matSuffix>qr_code_scanner</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>UCI-ID</mat-label>
+
+                <input matInput placeholder="Scan QR" formControlName="uciId" (focus)="enableScan('uciId')" (blur)="scan = false" />
+
+                <mat-icon matSuffix>qr_code_scanner</mat-icon>
+            </mat-form-field>
+        </form>
+
+        <zxing-scanner class="scanner" [timeBetweenScans]="100" (scanSuccess)="scanSuccess($event, stepper)" *ngIf="scan" />
+    </mat-step>
+
+    <mat-step label="Wedstrijd">
+        @for (wedstrijd of (wedstrijden | async); track $index) {
+        <button mat-button matStepperNext (click)="selectedWedstrijd = wedstrijd">{{ wedstrijd.naam }}</button>
+        }
+    </mat-step>
+
+    <mat-step label="Categorie">
+        @for (categorie of selectedWedstrijd?.categorieen; track $index) {
+        <button mat-button matStepperNext (click)="selectedCategorie = categorie">{{ categorie.naam }}</button>
+        }
+    </mat-step>
+
+    <mat-step label="Startnummer">
+        <p>210</p>
+    </mat-step>
+</mat-stepper>
+
+<button mat-fab [disabled]="stepper.selectedIndex === 0" (click)="stepper.previous()">
+    <mat-icon>arrow_back</mat-icon>
+</button>

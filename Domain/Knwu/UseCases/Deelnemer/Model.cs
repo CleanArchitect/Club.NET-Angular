@@ -7,7 +7,7 @@ public sealed class KnwuWedstrijdDeelnemerModel
     public string KnwuId { get; init; }
     public string UciId { get; init; }
 
-    internal KnwuWedstrijdDeelnemerModel(KnwuWedstrijdDeelnemer deelnemer)
+    internal KnwuWedstrijdDeelnemerModel(KnwuWedstrijdCategorieDeelnemer deelnemer)
     {
         Id = deelnemer.Id;
         Startnummer = deelnemer.Startnummer;
@@ -15,6 +15,6 @@ public sealed class KnwuWedstrijdDeelnemerModel
         UciId = deelnemer.UciId;
     }
 
-    internal static KnwuWedstrijdDeelnemerModel Create(KnwuWedstrijdDeelnemer deelnemer) =>
+    internal static KnwuWedstrijdDeelnemerModel Create(KnwuWedstrijdCategorieDeelnemer deelnemer) =>
         deelnemer == null ? null : new(deelnemer);
 }

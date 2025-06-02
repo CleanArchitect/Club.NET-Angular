@@ -13,6 +13,6 @@ internal sealed class CreateKnwuWedstrijdUsecase(IEntityGateway<KnwuWedstrijd> g
             .Add(wedstrijd)
             .SaveChangesAsync();
 
-        return new CreateKnwuWedstrijdOutput(wedstrijd);
+        return Output.Created(wedstrijd.Id);
     }
 }

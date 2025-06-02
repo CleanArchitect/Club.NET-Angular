@@ -2,7 +2,8 @@
 
 namespace Domain;
 
-public sealed class ExportExcelKnwuWedstrijdInput(Guid id) : IFileExportInput
+public sealed class ExportExcelKnwuWedstrijdInput(Guid wedstrijdId, Guid categorieId) : IFileExportInput
 {
-    public Guid WedstrijdId => id;
+    public Guid WedstrijdId => wedstrijdId;
+    public Guid CategorieId => categorieId;
 }

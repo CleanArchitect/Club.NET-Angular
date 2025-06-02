@@ -3,9 +3,9 @@
 namespace Domain;
 
 internal sealed class CreateKnwuWedstrijdDeelnemerUsecase(IEntityGateway<KnwuWedstrijd> gateway)
-    : IUseCase<CreateKnwuWedstrijdDeelnemerInput>
+    : IUseCase<CreateKnwuWedstrijdCategorieDeelnemerInput>
 {
-    public async Task<IOutput> ExecuteAsync(CreateKnwuWedstrijdDeelnemerInput input)
+    public async Task<IOutput> ExecuteAsync(CreateKnwuWedstrijdCategorieDeelnemerInput input)
     {
         var wedstrijd = await gateway.FindAsync(input.WedstrijdId);
 
@@ -13,6 +13,6 @@ internal sealed class CreateKnwuWedstrijdDeelnemerUsecase(IEntityGateway<KnwuWed
 
         await gateway.SaveChangesAsync();
 
-        return new CreateKnwuWedstrijdDeelnemerOutput(deelnemer);
+        return new CreateKnwuWedstrijdCategorieDeelnemerOutput(deelnemer);
     }
 }

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Api", "Application.Api\Application.Api.csproj", "{7DDF09A6-0AD7-4C9A-ABB4-00220DE104C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{7DDF09A6-0AD7-4C9A-ABB4-00220DE104C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FA4A9E93-F8E2-4DB6-8249-4C5FD35928D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{FEA8411A-553C-4BA3-B497-17CB158EFA61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{FEA8411A-553C-4BA3-B497-17CB158EFA61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,12 @@
+@mixin vertical{
+    &.vertical {
+        flex-direction: column;
+        height: 100%;
+        width: unset;
+        padding: 16px 0;
+    }
+}
+
+.mat-toolbar {
+    @include vertical();
+}

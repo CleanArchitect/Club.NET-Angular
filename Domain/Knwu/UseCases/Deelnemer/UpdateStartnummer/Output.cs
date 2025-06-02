@@ -2,11 +2,11 @@
 
 namespace Domain;
 
-public sealed class UpdateKnwuWedstrijdDeelnemerStartnummerOutput : IOutput
+public sealed class UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput : IOutput
 {
     public KnwuWedstrijdDeelnemerExcelModel Deelnemer { get; init; }
 
-    internal UpdateKnwuWedstrijdDeelnemerStartnummerOutput(KnwuWedstrijdDeelnemer deelnemer)
+    internal UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput(KnwuWedstrijdCategorieDeelnemer deelnemer)
     {
         Deelnemer = KnwuWedstrijdDeelnemerExcelModel.Create(deelnemer);
     }

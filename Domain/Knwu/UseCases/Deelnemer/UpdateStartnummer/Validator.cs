@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-internal sealed class UpdateKnwuWedstrijdDeelnemerStartnummerInputValidator : AbstractValidator<UpdateKnwuWedstrijdDeelnemerStartnummerInput>
+internal sealed class UpdateKnwuWedstrijdDeelnemerStartnummerInputValidator : AbstractValidator<UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput>
 {
     public UpdateKnwuWedstrijdDeelnemerStartnummerInputValidator()
     {
