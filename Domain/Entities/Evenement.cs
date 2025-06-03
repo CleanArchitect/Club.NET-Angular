@@ -4,5 +4,5 @@ namespace Domain;
 
 internal abstract class Evenement : Entity
 {
-    public DateOnly Datum { get; private set; }
+    public DateOnly Datum { get; protected init; }
 }

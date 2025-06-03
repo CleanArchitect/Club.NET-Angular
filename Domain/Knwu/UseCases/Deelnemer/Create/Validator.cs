@@ -11,16 +11,16 @@ internal sealed class CreateKnwuWedstrijdCategorieDeelnemerInputValidator : Abst
     {
         this.wedstrijdGateway = wedstrijdGateway;
 
-        RuleFor(input => input.WedstrijdId)
-            .NotEmpty();
+        //RuleFor(input => input.WedstrijdId)
+        //    .NotEmpty();
 
-        RuleFor(input => input)
-            .Must(NotBeRegistered)
-            .WithMessage("Deelnemer is al geregistreerd");
+        //RuleFor(input => input)
+        //    .Must(NotBeRegistered)
+        //    .WithMessage("Deelnemer is al geregistreerd");
 
         RuleFor(input => input.KnwuId)
             .Length(8)
-            //.DigitsOnly()
+            .Matches(@"^\d+$")
             .When(input => string.IsNullOrWhiteSpace(input.UciId));
 
         RuleFor(input => input.UciId)

@@ -18,6 +18,7 @@ internal class KnwuWedstrijd : Evenement
     {
         KnwuWedstrijdnummer = input.KnwuWedstrijdnummer;
         Naam = input.Naam;
+        Datum = input.Datum;
         categorieen = [.. input.Categorieen.Select(categorie => new KnwuWedstrijdCategorie(categorie))];
     }
 

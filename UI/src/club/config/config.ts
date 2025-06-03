@@ -2,7 +2,7 @@ import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, EnvironmentProviders, inject, Injectable, InjectionToken, makeEnvironmentProviders, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { routes } from './club.routes';
+import { routes } from './routes';
 
 export interface IConfig {
     api: string;

@@ -1,12 +1,14 @@
 <mat-stepper class="stepper no-header" linear #stepper>
     <mat-step label="Deelnemer">
-        <form [formGroup]="deelnemerForm">
+        <form [formGroup]="deelnemerForm" (keyup.enter)="deelnemerForm.valid ? stepper.next() : null; scan = false" *ngIf="deelnemerForm">
             <mat-form-field>
                 <mat-label>KNWU-ID</mat-label>
 
                 <input matInput placeholder="Scan QR" formControlName="knwuId" (focus)="enableScan('knwuId')" (blur)="scan = false" />
 
                 <mat-icon matSuffix>qr_code_scanner</mat-icon>
+
+                <mat-error *ngIf="deelnemerForm.controls.knwuId.errors?.required">Dit veld is verplicht</mat-error>
             </mat-form-field>
 
             <mat-form-field>
@@ -15,28 +17,27 @@
                 <input matInput placeholder="Scan QR" formControlName="uciId" (focus)="enableScan('uciId')" (blur)="scan = false" />
 
                 <mat-icon matSuffix>qr_code_scanner</mat-icon>
+
+                <mat-error *ngIf="deelnemerForm.controls.uciId.errors?.required">Dit veld is verplicht</mat-error>
             </mat-form-field>
         </form>
-
-        <zxing-scanner class="scanner" [timeBetweenScans]="100" (scanSuccess)="scanSuccess($event, stepper)" *ngIf="scan" />
     </mat-step>
 
-    <mat-step label="Wedstrijd">
-        @for (wedstrijd of (wedstrijden | async); track $index) {
-        <button mat-button matStepperNext (click)="selectedWedstrijd = wedstrijd">{{ wedstrijd.naam }}</button>
-        }
-    </mat-step>
-
-    <mat-step label="Categorie">
-        @for (categorie of selectedWedstrijd?.categorieen; track $index) {
-        <button mat-button matStepperNext (click)="selectedCategorie = categorie">{{ categorie.naam }}</button>
+    <mat-step label="Categorie" *ngIf="wedstrijd.categorieen.length > 1">
+        @for (categorie of wedstrijd?.categorieen; track $index) {
+        <button mat-fab matStepperNext (click)="selectedCategorie = categorie">{{ categorie.naam }}</button>
         }
     </mat-step>
 
     <mat-step label="Startnummer">
-        <p>210</p>
+        <div>Wedstrijd: {{ wedstrijd.naam }} </div>
+        <div *ngIf="deelnemerForm.value.knwuId">Deelnemer: {{ deelnemerForm.value.knwuId }}</div>
+        <div *ngIf="deelnemerForm.value.uciId">Team: {{ deelnemerForm.value.uciId }}</div>
+        <div>Categorie: {{ selectedCategorie?.naam }}</div>
     </mat-step>
 </mat-stepper>
+
+<zxing-scanner class="scanner" [timeBetweenScans]="100" (scanSuccess)="scanSuccess($event, stepper)" *ngIf="scan" />
 
 <button mat-fab [disabled]="stepper.selectedIndex === 0" (click)="stepper.previous()">
     <mat-icon>arrow_back</mat-icon>
