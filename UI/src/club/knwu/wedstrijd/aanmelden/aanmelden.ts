@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Component, inject, Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,9 +11,11 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { saveAs } from 'file-saver';
 import { Guid } from 'guid-typescript';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { CONFIG } from '../../../config/config';
+import { IKnwuWedstrijdDeelnemer, KnwuWedstrijdSDeelnemerService } from '../deelnemer/deelnemer';
 
 export interface IKnwuWedstrijdCategorie {
     id: Guid;
@@ -44,22 +46,47 @@ export class KnwuWedstrijdService {
             .pipe(map(response => response.wedstrijd));
     }
 
-    aanmelden(id: Guid, categorieId: Guid, knwuId: Guid, uciId?: Guid): Observable<any> {
+    aanmelden(id: Guid, categorieId: Guid, deelnemer: { knwuId: string, uciId: string }): Observable<IKnwuWedstrijdDeelnemer> {
         return this.http
-            .post<any>(`${this.config.api}/knwu/wedstrijd/${id}/categorie/${categorieId}/deelnemer`, { knwuId, uciId })
-            .pipe(map(response => response));
+            .post<any>(`${this.config.api}/knwu/wedstrijd/deelnemer`, {
+                wedstrijdId: id,
+                categorieId: categorieId,
+                knwuId: deelnemer.knwuId,
+                uciId: deelnemer.uciId
+            })
+            .pipe(map(response => response.deelnemer));
+    }
+
+    export(id: Guid, categorieId: Guid): Observable<any> {
+        return this.http
+            .get<any>(`${this.config.api}/knwu/wedstrijd/${id}/categorie/${categorieId}/export`, {
+                responseType: 'blob' as 'json',
+                observe: 'response'
+            })
+            .pipe(map(response => saveAs(response.body, this.getFileName(response))));
+    }
+
+    private getFileName(response: HttpResponseBase): string {
+        const contentDisposition = response.headers.get('content-disposition');
+
+        return contentDisposition
+            .split(';')[1]
+            .split('filename')[1]
+            .split('=')[1]
+            .trim()
+            .match(/"([^"]+)"/)[1];
     }
 }
 
 @Injectable({ providedIn: 'root' })
 export class KnwuWedstrijdResolver implements Resolve<IKnwuWedstrijd> {
-    static wedstrijdId = 'wedstrijdId';
-    static wedstrijd = 'wedstrijd';
+    static routeId = 'wedstrijdId';
+    static routeDataKey = 'wedstrijd';
 
     private service = inject(KnwuWedstrijdService);
 
     resolve(route: ActivatedRouteSnapshot): Observable<IKnwuWedstrijd> {
-        return this.service.get(Guid.parse(route.paramMap.get(KnwuWedstrijdResolver.wedstrijdId)));
+        return this.service.get(Guid.parse(route.paramMap.get(KnwuWedstrijdResolver.routeId)));
     }
 }
 
@@ -73,10 +100,12 @@ export class KnwuWedstrijdAanmeldenComponent {
     private scanTargetControl: AbstractControl;
     private formBuilder = inject(FormBuilder);
     private service = inject(KnwuWedstrijdService);
-    
-    wedstrijd: IKnwuWedstrijd = inject(ActivatedRoute).snapshot.data[KnwuWedstrijdResolver.wedstrijd];
+    private deelnemerService = inject(KnwuWedstrijdSDeelnemerService);
+
+    wedstrijd: IKnwuWedstrijd = inject(ActivatedRoute).snapshot.data[KnwuWedstrijdResolver.routeDataKey];
     selectedCategorie: IKnwuWedstrijdCategorie = this.wedstrijd.categorieen.length === 1 ? this.wedstrijd.categorieen[0] : null;
     deelnemerForm = this.createDeelnemerForm();
+    deelnemer: IKnwuWedstrijdDeelnemer;
 
     scan = false;
 
@@ -91,30 +120,47 @@ export class KnwuWedstrijdAanmeldenComponent {
         setTimeout(() => stepper.next(), 800);
     }
 
-    register(): void {
-        // if (!this.form.valid)
-        //     return this.form.markAllAsTouched();
+    aanmelden(stepper: MatStepper): void {
+        if (!this.deelnemerForm.valid || !this.selectedCategorie)
+            return this.deelnemerForm.markAllAsTouched();
+
+        this.service
+            .aanmelden(this.wedstrijd.id, this.selectedCategorie.id, this.deelnemerForm.value)
+            .pipe(tap(deelnemer => this.deelnemer = deelnemer))
+            .subscribe(_ => stepper.next());
+    }
+
+    updateNummer(): void {
+        this.deelnemerService
+            .updateStartnummer(this.deelnemer.id)
+            .subscribe(deelnemer => this.deelnemer = deelnemer);
     }
 
     private createDeelnemerForm(): FormGroup {
         return this.formBuilder
             .group({
-                knwuId: [null, CustomValidators.requiredWhen(form => !form.controls.uciId.value)],
-                uciId: [null, CustomValidators.requiredWhen(form => !form.controls.knwuId.value)]
+                knwuId: [null, CustomValidators.conditional(form => !form.controls.uciId.value, Validators.required, Validators.minLength(8))],
+                uciId: [null, CustomValidators.conditional(form => !form.controls.knwuId.value, Validators.required, Validators.minLength(11))]
             })
             .withMonitoring();
     }
 }
 
 export class CustomValidators {
-    static requiredWhen(predicate: (form: FormGroup) => boolean): ValidatorFn {
+    static conditional(predicate: (form: FormGroup) => boolean, ...validators: ValidatorFn[]): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const formGroup = control.parent;
 
             if (!(formGroup instanceof FormGroup))
                 return null;
 
-            return predicate(formGroup) ? Validators.required(control) : null;
+            if (!predicate(formGroup))
+                return null;
+
+            return validators.reduce((errors, validator) => {
+                const result = validator(control);
+                return result ? { ...errors, ...result } : errors;
+            }, {} as ValidationErrors);
         };
     }
 }

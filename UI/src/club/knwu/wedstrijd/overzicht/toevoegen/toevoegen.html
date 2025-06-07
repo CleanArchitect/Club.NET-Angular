@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Wedstrijd toevoegen</h2>
+
+<mat-dialog-content>
+    <form>
+        <mat-form-field appearance="outline">
+            <mat-label>Naam</mat-label>
+
+            <input matInput />
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <mat-label>Datum</mat-label>
+        </mat-form-field> -->
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Annuleren</button>
+    <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial color="success">Toevoegen</button>
+</mat-dialog-actions>

@@ -27,9 +27,9 @@ internal class KnwuWedstrijd : Evenement
             .Single(categorie => categorie.Id == input.CategorieId)
             .CreateDeelnemer(input);
 
-    public KnwuWedstrijdCategorieDeelnemer UpdateDeelnemerStartnummer(UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput input) =>
-        Categorieen
-            .Single(categorie => categorie.Id == input.CategorieId).Deelnemers
-            .Single(deelnemer => deelnemer.Id == input.DeelnemerId)
-            .UpdateStartnummer();
+    //public KnwuWedstrijdCategorieDeelnemer UpdateDeelnemerStartnummer(UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput input) =>
+    //    Categorieen
+    //        .Single(categorie => categorie.Id == input.CategorieId).Deelnemers
+    //        .Single(deelnemer => deelnemer.Id == input.DeelnemerId)
+    //        .UpdateStartnummer();
 }

@@ -3,9 +3,9 @@
 public sealed class KnwuWedstrijdDeelnemerModel
 {
     public Guid Id { get; init; }
-    public short Startnummer { get; init; }
     public string KnwuId { get; init; }
     public string UciId { get; init; }
+    public short Startnummer { get; init; }
 
     internal KnwuWedstrijdDeelnemerModel(KnwuWedstrijdCategorieDeelnemer deelnemer)
     {

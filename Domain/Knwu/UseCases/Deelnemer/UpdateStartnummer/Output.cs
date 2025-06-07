@@ -4,10 +4,10 @@ namespace Domain;
 
 public sealed class UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput : IOutput
 {
-    public KnwuWedstrijdDeelnemerExcelModel Deelnemer { get; init; }
+    public KnwuWedstrijdDeelnemerModel Deelnemer { get; init; }
 
     internal UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput(KnwuWedstrijdCategorieDeelnemer deelnemer)
     {
-        Deelnemer = KnwuWedstrijdDeelnemerExcelModel.Create(deelnemer);
+        Deelnemer = KnwuWedstrijdDeelnemerModel.Create(deelnemer);
     }
 }

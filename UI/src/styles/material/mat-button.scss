@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+
+@mixin color($background, $color) {
+    @include mat.button-overrides(
+        (
+            filled-container-color: $background,
+            filled-label-text-color: $color
+        )
+    );
+
+    @include mat.fab-overrides(
+        (
+            container-color: $background,
+            foreground-color: $color
+        )
+    );
+
+    @include mat.icon-button-overrides(
+        (
+            icon-color: $background
+        )
+    );
+}
+
+@mixin colors() {
+    &.mat-primary {
+        @include color(var(--mat-sys-primary), var(--mat-sys-on-primary));
+    }
+
+    &.mat-accent {
+        @include color(var(--mat-sys-secondary), var(--mat-sys-on-secondary));
+    }
+
+    &.mat-tertiary {
+        @include color(var(--mat-sys-tertiary), var(--mat-sys-on-tertiary));
+    }
+
+    &.mat-success {
+        @include color(#43A047, white);
+    }
+}
+
+.mat-mdc-button-base {
+    @include colors();
+}

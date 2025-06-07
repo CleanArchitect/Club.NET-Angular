@@ -29,5 +29,6 @@ internal sealed class CorsSettings(string name, string[] origins)
     public Action<CorsPolicyBuilder> Policy => builder => builder
         .WithOrigins(origins)
         .AllowAnyMethod()
-        .AllowAnyHeader();
+        .AllowAnyHeader()
+        .WithExposedHeaders("Content-Disposition");
 }

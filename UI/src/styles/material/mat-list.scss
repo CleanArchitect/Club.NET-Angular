@@ -1,0 +1,11 @@
+@mixin meta-aligning() {
+    .mat-mdc-list-item-meta {
+        display: flex !important;
+        align-items: center;
+        height: 100%;
+    }
+}
+
+.mat-mdc-list-base {
+    @include meta-aligning();
+}

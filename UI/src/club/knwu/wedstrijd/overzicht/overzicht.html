@@ -1,25 +1,27 @@
-<!-- <mat-table class="table mat-elevation-z8" [dataSource]="wedstrijden | async">
-    <ng-container matColumnDef="naam">
-        <mat-header-cell mat-header-cell *matHeaderCellDef>Naam</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let wedstrijd">{{ wedstrijd.naam }}</mat-cell>
-    </ng-container>
+<h6>
+    <span>Wedstrijden</span>
 
-    <ng-container matColumnDef="datum">
-        <mat-header-cell mat-header-cell *matHeaderCellDef>Datum</mat-header-cell>
-        <mat-cell mat-cell *matCellDef="let wedstrijd">{{ wedstrijd.datum | date:'dd-MM-yyyy' }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row matRipple *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table> -->
+    <button mat-icon-button (click)="toevoegen()">
+        <mat-icon>add</mat-icon>
+    </button>
+</h6>
 
 <mat-selection-list [multiple]="false" hideSingleSelectionIndicator>
-    <div mat-subheader>Wedstrijden</div>
-    @for (wedstrijd of wedstrijden | async; track wedstrijd) {
-    <mat-list-item [routerLink]="['/knwu/wedstrijd/aanmelden', wedstrijd.id]">
+    <mat-list-item [routerLink]="['/knwu/wedstrijd', wedstrijd.id, 'aanmelden']" *ngFor="let wedstrijd of wedstrijden | async; let index = index">
         <mat-icon matListItemIcon>directions_bike</mat-icon>
+
         <div matListItemTitle>{{wedstrijd.naam}}</div>
+
         <div matListItemLine>{{wedstrijd.datum | date:'dd-MM-yyyy'}}</div>
+
+        <div matListItemMeta>
+            <button mat-icon-button [matMenuTriggerFor]="printMenu" (click)="$event.preventDefault(); $event.stopPropagation(); $event.stopImmediatePropagation();">
+                <mat-icon>print</mat-icon>
+            </button>
+
+            <mat-menu #printMenu="matMenu">
+                <button mat-menu-item *ngFor="let categorie of wedstrijd.categorieen" [value]="categorie.id" (click)="print(wedstrijd.id, categorie.id)">{{ categorie.naam }}</button>
+            </mat-menu>
+        </div>
     </mat-list-item>
-    }
 </mat-selection-list>

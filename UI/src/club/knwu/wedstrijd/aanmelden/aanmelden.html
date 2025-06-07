@@ -1,5 +1,7 @@
 <mat-stepper class="stepper no-header" linear #stepper>
     <mat-step label="Deelnemer">
+        <zxing-scanner class="scanner" [timeBetweenScans]="100" (scanSuccess)="scanSuccess($event, stepper)" *ngIf="scan" />
+
         <form [formGroup]="deelnemerForm" (keyup.enter)="deelnemerForm.valid ? stepper.next() : null; scan = false" *ngIf="deelnemerForm">
             <mat-form-field>
                 <mat-label>KNWU-ID</mat-label>
@@ -8,7 +10,8 @@
 
                 <mat-icon matSuffix>qr_code_scanner</mat-icon>
 
-                <mat-error *ngIf="deelnemerForm.controls.knwuId.errors?.required">Dit veld is verplicht</mat-error>
+                <mat-error *ngIf="deelnemerForm.controls.knwuId.hasError('required')">Dit veld is verplicht</mat-error>
+                <mat-error *ngIf="deelnemerForm.controls.knwuId.hasError('minLength')">Lengte is niet correct</mat-error>
             </mat-form-field>
 
             <mat-form-field>
@@ -18,27 +21,40 @@
 
                 <mat-icon matSuffix>qr_code_scanner</mat-icon>
 
-                <mat-error *ngIf="deelnemerForm.controls.uciId.errors?.required">Dit veld is verplicht</mat-error>
+                <mat-error *ngIf="deelnemerForm.controls.uciId.hasError('required')">Dit veld is verplicht</mat-error>
+                <mat-error *ngIf="deelnemerForm.controls.uciId.hasError('minLength')">Lengte is niet correct</mat-error>
             </mat-form-field>
         </form>
     </mat-step>
 
     <mat-step label="Categorie" *ngIf="wedstrijd.categorieen.length > 1">
-        @for (categorie of wedstrijd?.categorieen; track $index) {
-        <button mat-fab matStepperNext (click)="selectedCategorie = categorie">{{ categorie.naam }}</button>
-        }
+        <button mat-fab matStepperNext (click)="selectedCategorie = categorie" *ngFor="let categorie of wedstrijd?.categorieen">{{ categorie.naam }}</button>
     </mat-step>
 
-    <mat-step label="Startnummer">
-        <div>Wedstrijd: {{ wedstrijd.naam }} </div>
+    <mat-step label="Samenvatting">
+        <div>Wedstrijd: {{ wedstrijd.naam }}</div>
         <div *ngIf="deelnemerForm.value.knwuId">Deelnemer: {{ deelnemerForm.value.knwuId }}</div>
         <div *ngIf="deelnemerForm.value.uciId">Team: {{ deelnemerForm.value.uciId }}</div>
         <div>Categorie: {{ selectedCategorie?.naam }}</div>
     </mat-step>
+
+    <mat-step label="Deelnemer" *ngIf="deelnemer">
+        <h1 class="startnummer">Startnummer: {{ deelnemer?.startnummer }}</h1>
+
+        <button mat-icon-button (click)="updateNummer()">
+            <mat-icon>refresh</mat-icon>
+        </button>
+    </mat-step>
 </mat-stepper>
 
-<zxing-scanner class="scanner" [timeBetweenScans]="100" (scanSuccess)="scanSuccess($event, stepper)" *ngIf="scan" />
+<div class="actions" *ngIf="deelnemerForm">
+    <button mat-fab color="primary" [disabled]="stepper.selectedIndex === 0" (click)="stepper.previous()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 
-<button mat-fab [disabled]="stepper.selectedIndex === 0" (click)="stepper.previous()">
-    <mat-icon>arrow_back</mat-icon>
-</button>
+    <button mat-fab extended color="success" (click)="aanmelden(stepper)" *ngIf="deelnemerForm.valid && selectedCategorie">
+        <mat-icon>arrow_forward</mat-icon>
+
+        <span>Aanmelden</span>
+    </button>
+</div>
