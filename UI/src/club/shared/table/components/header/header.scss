@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+    border-top-left-radius: var(--mat-sys-corner-large);
+    border-top-right-radius: var(--mat-sys-corner-large);
+    padding: var(--mat-sys-corner-large);
+
+    .mat-header-title {
+        font: var(--sys-headline-small);
+    }
+
+    .mat-header-actions {
+        flex: 1;
+    }
+}

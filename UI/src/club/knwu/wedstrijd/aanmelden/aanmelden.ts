@@ -14,7 +14,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { saveAs } from 'file-saver';
 import { Guid } from 'guid-typescript';
 import { map, Observable, tap } from 'rxjs';
-import { CONFIG } from '../../../config/config';
+import { CONFIG } from '../../../shared/config/config';
 import { IKnwuWedstrijdDeelnemer, KnwuWedstrijdSDeelnemerService } from '../deelnemer/deelnemer';
 
 export interface IKnwuWedstrijdCategorie {

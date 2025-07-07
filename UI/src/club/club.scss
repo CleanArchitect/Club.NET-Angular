@@ -1,4 +1,17 @@
 :host {
-    display: flex;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
     height: 100%;
+    display: block;
+    padding: 16px;
+    max-width: 100%;
+    // overflow: auto;
+
+    .cube {
+        position: relative;
+        border: 1px solid black;
+        height: 100px;
+        width: 100px;
+    }
 }

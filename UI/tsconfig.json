@@ -13,7 +13,7 @@
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "strictPropertyInitialization": false,
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "importHelpers": true,
         "target": "ES2022",
         "module": "ES2022"

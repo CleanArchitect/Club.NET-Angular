@@ -3,7 +3,7 @@ import { Component, inject, Injectable } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { map, Observable } from 'rxjs';
-import { CONFIG } from '../../../config/config';
+import { CONFIG } from '../../../shared/config/config';
 
 export interface IKnwuWedstrijdDeelnemer {
     id: Guid;

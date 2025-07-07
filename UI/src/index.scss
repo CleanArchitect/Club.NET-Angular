@@ -1,9 +1,11 @@
 @use '@angular/material' as mat;
 @use './styles/theming.scss';
 @use './styles/material/mat-button.scss';
+@use './styles/material/mat-icon.scss';
 @use './styles/material/mat-list.scss';
 @use './styles/material/mat-stepper.scss';
 @use './styles/material/mat-toolbar.scss';
+@use './club/shared/table/directives/resize/resize.directive.scss';
 
 * {
     margin: 0;
@@ -13,3 +15,10 @@ html,
 body {
     height: 100%;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+

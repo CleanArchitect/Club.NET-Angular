@@ -1,0 +1,80 @@
+@mixin clean-resize-cursors {
+    &.right,
+    &.left {
+        cursor: e-resize;
+    }
+
+    &.bottom,
+    &.top {
+        cursor: n-resize;
+    }
+
+    &.bottom {
+        &.left {
+            cursor: nesw-resize;
+        }
+        &.right {
+            cursor: nwse-resize;
+        }
+    }
+
+    &.top {
+        &.left {
+            cursor: nwse-resize;
+        }
+        &.right {
+            cursor: nesw-resize;
+        }
+    }
+}
+
+@mixin clean-resize-positions() {
+    &.top {
+        top: 0;
+    }
+    &.bottom {
+        bottom: 0;
+    }
+    &.left {
+        left: 0;
+    }
+    &.right {
+        right: 0;
+    }
+
+    &.top.left,
+    &.top.right,
+    &.bottom.left,
+    &.bottom.right {
+        z-index: 1;
+    }
+}
+
+@mixin clean-resize-sizes($size) {
+    width: $size;
+    height: $size;
+
+    &.left:not(.top):not(.bottom),
+    &.right:not(.top):not(.bottom) {
+        top: 0;
+        bottom: 0;
+        height: auto;
+    }
+
+    &.top:not(.left):not(.right),
+    &.bottom:not(.left):not(.right) {
+        left: 0;
+        right: 0;
+        width: auto;
+    }
+}
+
+.clean-resize-handle {
+    $size: 6px;
+
+    @include clean-resize-cursors;
+    @include clean-resize-positions;
+    @include clean-resize-sizes($size);
+
+    position: absolute;
+}

@@ -1,0 +1,26 @@
+@switch (column.style) {
+    @case ('commas') {
+        <span class="clean-column-array-commas">{{ column.value(rowElement) | cleanArray}}</span>
+    }
+    @case ('multi-line') {
+        <span class="clean-column-array-lines" [innerText]="column.value(rowElement) | cleanArray:'\n'"></span>
+    }
+    @case ('bulleted') {
+        <ul class="clean-column-array-bulleted">
+            <li *ngFor="let item of column.value(rowElement)">{{ item }}</li>
+        </ul>
+    }
+    @case ('numbered') {
+        <ol class="clean-column-array-numbered">
+            <li *ngFor="let item of column.value(rowElement)">{{ item }}</li>
+        </ol>
+    }
+    @case ('chips') {
+        <mat-chip-set class="clean-column-array-chips">
+            <mat-chip *ngFor="let item of column.value(rowElement)">
+                <mat-icon matChipAvatar>account_circle</mat-icon>
+                <span>{{ item }}</span>
+            </mat-chip>
+        </mat-chip-set>
+    }
+}

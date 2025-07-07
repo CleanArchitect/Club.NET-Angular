@@ -1,0 +1,14 @@
+@switch (column.type) {
+    @case ('icon') {
+        <mat-icon>{{ column.toIcon(rowElement) }}</mat-icon>
+    }
+    @case ('checkbox') {
+        <mat-checkbox [checked]="value" (change)="change($event.checked)"></mat-checkbox>
+    }
+    @case ('slide-toggle') {
+        <mat-slide-toggle [checked]="value" (change)="change($event.checked)"></mat-slide-toggle>
+    }
+    @case ('text') {
+        {{ column.toText(rowElement) }}
+    }
+}

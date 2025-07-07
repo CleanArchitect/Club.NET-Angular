@@ -1,0 +1,14 @@
+.titel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.startnummers {
+    display: flex;
+    align-items: center;
+
+    .nummer + .nummer {
+        margin-left: 16px;
+    }
+}

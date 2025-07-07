@@ -1,4 +1,4 @@
-<mat-toolbar class="vertical">
+<!-- <mat-toolbar class="vertical">
     <img src="images/rwcahoy_logo.png" alt="Logo" height="45">
 
     <button mat-icon-button matTooltip="Wedstrijden" routerLink="knwu/wedstrijd/overzicht">
@@ -6,4 +6,12 @@
     </button>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+<clean-table [data]="data" [columns]="columns" [config]="config">
+    <clean-table-title>Wedstrijden</clean-table-title>
+</clean-table>
+
+
+<!-- <div class="cube" clean-resize="all" [clean-resize-config]="{ maxWidth: 200, maxHeight: 200, minWidth: 50, minHeight: 50 }"></div> -->
+
+

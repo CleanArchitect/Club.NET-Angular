@@ -1,16 +1,58 @@
 <h2 mat-dialog-title>Wedstrijd toevoegen</h2>
 
 <mat-dialog-content>
-    <form>
+    <form [formGroup]="form">
         <mat-form-field appearance="outline">
             <mat-label>Naam</mat-label>
 
             <input matInput />
         </mat-form-field>
 
-        <!-- <mat-form-field>
+        <mat-form-field appearance="outline">
             <mat-label>Datum</mat-label>
-        </mat-form-field> -->
+
+            <input matInput [matDatepicker]="picker" />
+
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <h6 class="titel">
+            <span>Categorieën</span>
+
+            <button mat-icon-button (click)="addCategorie()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </h6>
+
+        <ng-container formArrayName="categorieen">
+            <ng-container *ngFor="let categorie of categories.controls; let i = index" [formGroup]="categorie">
+                <mat-form-field appearance="outline">
+                    <mat-label>Naam</mat-label>
+
+                    <input matInput formControlName="naam" />
+
+                    <button mat-icon-button matSuffix (click)="removeCategory(i)" *ngIf="categories.length > 1">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <div class="startnummers">
+                    <mat-form-field class="nummer" appearance="outline">
+                        <mat-label>Startnummer begin</mat-label>
+
+                        <input matInput type="number" formControlName="startnummerBegin" />
+                    </mat-form-field>
+
+                    <mat-form-field class="nummer" appearance="outline">
+                        <mat-label>Startnummer eind</mat-label>
+
+                        <input matInput type="number" formControlName="startnummerEind" />
+                    </mat-form-field>
+                </div>
+            </ng-container>
+        </ng-container>
     </form>
 </mat-dialog-content>
 
