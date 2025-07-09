@@ -1,0 +1,12 @@
+@mixin clean-table-spacing {
+    &.clean-table-paginator {
+        .mat-mdc-paginator-container {
+            min-height: unset;
+            padding: 0;
+        }
+    }
+}
+
+.mat-mdc-paginator {
+    @include clean-table-spacing;
+}

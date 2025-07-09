@@ -21,12 +21,12 @@
     </div>
 </clean-table-header>
 
-<div class="clean-table">
+<div class="clean-table-content">
     <table mat-table matSort [dataSource]="table.dataSource" *ngIf="table">
         <ng-container [matColumnDef]="column.name" *ngFor="let column of table.columns.visible">
-            <th mat-header-cell mat-sort-header clean-resize="right" [ngClass]="column.cssClass" [disabled]="!column.sortable" *matHeaderCellDef>{{ column.name }}</th>
+            <th mat-header-cell mat-sort-header clean-resize="right" [clean-resize-config]="{ resizeHostElement: false }" (resized)="column.widthPx = $event.width" [style.width.px]="column.widthPx" [ngClass]="column.cssClass" [disabled]="!column.sortable" *matHeaderCellDef>{{ column.name }}</th>
 
-            <td mat-cell [ngClass]="column.cssClass" *matCellDef="let rowElement">
+            <td mat-cell [ngClass]="column.cssClass" [style.width.px]="column.widthPx" *matCellDef="let rowElement">
                 <ng-container [cleanTableColumn]="column" [rowElement]="rowElement" *ngIf="column.hasValue(rowElement); else empty" />
 
                 <ng-template #empty><span>{{ column.emptyPlaceholder }}</span></ng-template>

@@ -15,19 +15,19 @@ export class CleanResizeHandle {
         return this.handleElement.classList.contains('top') || this.handleElement.classList.contains('bottom');
     }
 
-    private constructor(private handleElement: HTMLElement) { }
+    private constructor(private handleElement: HTMLElement, private config: CleanResizeConfig) { }
 
     static create(position: CleanResizeHandlePosition, config: CleanResizeConfig, resizeElement: HTMLElement, renderer: Renderer2): CleanResizeHandle {
         const handleElement = renderer.createElement('div') as HTMLElement;
 
-        return new CleanResizeHandle(handleElement)
-            .withClasses(position, config)
-            .appendTo(resizeElement, config)
+        return new CleanResizeHandle(handleElement, config)
+            .withClasses(position)
+            .appendTo(resizeElement)
             .init(resizeElement);
     }
 
-    private withClasses(position: CleanResizeHandlePosition, config: CleanResizeConfig): this {
-        const classes = [config.handleCssClass, ...position.split(' ')]
+    private withClasses(position: CleanResizeHandlePosition): this {
+        const classes = [this.config.handleCssClass, ...position.split(' ')]
             .filter(cssClass => !!cssClass?.trim());
 
         this.handleElement.classList.add('clean-resize-handle', ...classes);
@@ -35,13 +35,13 @@ export class CleanResizeHandle {
         return this;
     }
 
-    private appendTo(resizableElement: HTMLElement, config: CleanResizeConfig): this {
+    private appendTo(resizableElement: HTMLElement): this {
         resizableElement.style.position = 'relative';
         resizableElement.style.boxSizing = 'border-box';
-        resizableElement.style.minWidth = `${config.minWidth}px`;
-        resizableElement.style.maxWidth = `${config.maxWidth}px`;
-        resizableElement.style.minHeight = `${config.minHeight}px`;
-        resizableElement.style.maxHeight = `${config.maxHeight}px`;
+        resizableElement.style.minWidth = `${this.config.minWidth}px`;
+        resizableElement.style.maxWidth = `${this.config.maxWidth}px`;
+        resizableElement.style.minHeight = `${this.config.minHeight}px`;
+        resizableElement.style.maxHeight = `${this.config.maxHeight}px`;
         resizableElement.appendChild(this.handleElement);
 
         return this;
@@ -68,13 +68,23 @@ export class CleanResizeHandle {
     }
 
     private resize(resizableElement: HTMLElement, startWidth: number, startHeight: number, startEvent: MouseEvent, moveEvent: MouseEvent): void {
-        if (this.resizesWidth)
-            resizableElement.style.width = `${startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width')}px`;
+        const newWidth = startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width');
+        const newHeight = startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height');
 
-        if (this.resizesHeight)
-            resizableElement.style.height = `${startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height')}px`;
+        if (this.config.resizeHostElement && this.resizesWidth)
+            resizableElement.style.width = `${newWidth}px`;
 
-        this.resized.emit({ width: resizableElement.offsetWidth, height: resizableElement.offsetHeight });
+        if (this.config.resizeHostElement && this.resizesHeight)
+            resizableElement.style.height = `${newHeight}px`;
+
+        this.emitEvent(resizableElement, newWidth, newHeight);
+    }
+
+    private emitEvent(resizableElement: HTMLElement, width: number, height: number): void {
+        width = this.resizesWidth && !this.config.resizeHostElement ? width : resizableElement.offsetWidth;
+        height = this.resizesHeight && !this.config.resizeHostElement ? height : resizableElement.offsetHeight;
+
+        this.resized.emit({ width, height });
     }
 
     private deltaMovement(currentPosition: number, startPosition: number, direction: CleanResizeDirection): number {

@@ -1,0 +1,1 @@
+export type CleanTableAppearance = 'outlined' | 'fill' | 'none'; 

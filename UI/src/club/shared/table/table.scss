@@ -1,14 +1,45 @@
+:host([appearance='outlined']) {
+    border: 1px solid var(--mat-sys-outline-variant);
+    border-radius: var(--mat-sys-corner-large);
+    background: var(--mat-sys-surface);
+
+    .clean-table-content {
+        margin: 0 16px;
+    }
+}
+
+:host([appearance='fill']) {
+    background-color: var(--mat-sys-surface-container);
+    border-radius: var(--mat-sys-corner-large);
+
+    .clean-table-header,
+    .clean-table-paginator {
+        color: var(--mat-sys-on-surface-variant);
+    }
+}
+
+:host([appearance='none']) {
+    border-radius: 0;
+
+    .clean-table-header {
+        padding: 16px 0;
+    }
+
+    .clean-table-paginator {
+        padding: 8px 0;
+    }
+}
+
 :host {
     display: block;
     width: 100%;
+    border-radius: var(--mat-sys-corner-large);
+    background: var(--mat-sys-surface);
 
     .clean-table-header {
         display: flex;
         flex-direction: column;
         padding: 16px;
-        border-top-left-radius: 16px;
-        border-top-right-radius: 16px;
-        background-color: var(--mat-sys-surface-container);
 
         .clean-table-header-top {
             display: flex;
@@ -32,7 +63,7 @@
                 height: 100%;
                 border: none;
                 outline: none;
-                font: var(--mat-sys-body-large-font);
+                font: var(--mat-sys-body-large);
                 color: var(--mat-sys-on-surface-variant);
                 padding: 0;
                 margin-left: 8px;
@@ -41,12 +72,11 @@
         }
     }
 
-    .clean-table {
+    .clean-table-content {
         overflow: auto;
-        width: 100%;
 
         > table {
-            min-width: 100%;
+            table-layout: fixed;
             width: max-content;
 
             .mat-mdc-header-row {
@@ -59,17 +89,16 @@
             .mat-mdc-row {
                 .mat-column-actions {
                     background: none;
-                    // transition: 300ms ease-in-out;
                     padding-left: 50px;
 
                     button {
                         opacity: 0;
                     }
                 }
-                
+
                 &:hover {
                     .mat-column-actions {
-                        background: linear-gradient(to right, transparent, var(--mat-sys-surface) 25%);
+                        background: linear-gradient(to right, transparent, var(--mat-sys-surface-container-low) 25%);
 
                         button {
                             opacity: 1;
@@ -81,9 +110,7 @@
     }
 
     .clean-table-paginator {
-        background-color: var(--mat-sys-surface-container);
-        color: var(--mat-sys-on-surface-variant);
-        border-bottom-left-radius: 16px;
-        border-bottom-right-radius: 16px;
+        background: none;
+        padding: 8px 16px;
     }
 }

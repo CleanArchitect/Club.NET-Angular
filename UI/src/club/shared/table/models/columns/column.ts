@@ -9,6 +9,7 @@ export class CleanTableColumn<TRowElement, TValue = any> {
     visible: boolean = true;
     sortable: boolean = true;
     cssClass: string | string[] | Set<string> | { [key: string]: any; };
+    widthPx: number = null;
     emptyPlaceholder = '-';
 
     constructor(
