@@ -10,6 +10,7 @@ export class CleanTableColumn<TRowElement, TValue = any> {
     sortable: boolean = true;
     cssClass: string | string[] | Set<string> | { [key: string]: any; };
     widthPx: number = null;
+    order: number;
     emptyPlaceholder = '-';
 
     constructor(
@@ -24,6 +25,6 @@ export class CleanTableColumn<TRowElement, TValue = any> {
     click: (rowElement: TRowElement) => void;
     sortBy: (rowElement: TRowElement) => string | number = (rowElement: TRowElement) => this.value(rowElement)?.toString();
     filterBy: (rowElement: TRowElement) => string = (rowElement: TRowElement) => this.value(rowElement)?.toString();
-    hasValue: (rowElement: TRowElement) => boolean = (rowElement: TRowElement) => !!this.value(rowElement);
     exportAs: (rowElement: TRowElement) => string = (rowElement: TRowElement) => this.value(rowElement)?.toString();
+    hasValue: (rowElement: TRowElement) => boolean = (rowElement: TRowElement) => !!this.value(rowElement);
 }

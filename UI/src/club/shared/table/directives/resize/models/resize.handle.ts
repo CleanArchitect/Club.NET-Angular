@@ -1,5 +1,5 @@
 import { EventEmitter, Renderer2 } from '@angular/core';
-import { fromEvent, takeUntil } from 'rxjs';
+import { fromEvent, takeUntil, tap } from 'rxjs';
 import { CleanResizeConfig } from '../config/resize.config';
 import { ICleanResizeEvent } from '../events/resized.event';
 import { CleanResizeDirection, CleanResizeHandlePosition } from '../types/resize.types';
@@ -48,22 +48,21 @@ export class CleanResizeHandle {
     }
 
     private init(resizableElement: HTMLElement): this {
-        this.handleElement
-            .addEventListener('mousedown', mouseDown => this
-                .startResize(mouseDown, resizableElement), { passive: false });
+        fromEvent<MouseEvent>(this.handleElement, 'mousedown', { passive: false })
+            .pipe(tap(mouseDown => this.stopEvents(mouseDown)))
+            .subscribe(mouseDown => this.startResize(mouseDown, resizableElement));
 
         return this;
     }
 
     private startResize(startEvent: MouseEvent, resizableElement: HTMLElement) {
-        startEvent.preventDefault();
-        startEvent.stopPropagation();
-
         const startWidth = resizableElement.offsetWidth;
         const startHeight = resizableElement.offsetHeight;
 
         fromEvent<MouseEvent>(document, 'mousemove')
-            .pipe(takeUntil(fromEvent<MouseEvent>(document, 'mouseup')))
+            .pipe(
+                takeUntil(fromEvent<MouseEvent>(document, 'mouseup').pipe(tap(upEvent => this.stopEvents(upEvent)))),
+                tap(moveEvent => this.stopEvents(moveEvent)))
             .subscribe(moveEvent => this.resize(resizableElement, startWidth, startHeight, startEvent, moveEvent));
     }
 
@@ -81,8 +80,8 @@ export class CleanResizeHandle {
     }
 
     private emitEvent(resizableElement: HTMLElement, width: number, height: number): void {
-        width = this.resizesWidth && !this.config.resizeHostElement ? width : resizableElement.offsetWidth;
-        height = this.resizesHeight && !this.config.resizeHostElement ? height : resizableElement.offsetHeight;
+        width = this.resizesWidth ? width : resizableElement.offsetWidth;
+        height = this.resizesHeight ? height : resizableElement.offsetHeight;
 
         this.resized.emit({ width, height });
     }
@@ -96,5 +95,10 @@ export class CleanResizeHandle {
     private isInverse(direction: CleanResizeDirection): boolean {
         return direction === 'width' && this.handleElement.classList.contains('left')
             || direction === 'height' && this.handleElement.classList.contains('top');
+    }
+    
+    private stopEvents(mouseEvent: MouseEvent): void {
+        mouseEvent.preventDefault();
+        mouseEvent.stopPropagation();
     }
 }

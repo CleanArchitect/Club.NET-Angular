@@ -17,4 +17,15 @@
         padding: 16px;
         margin: 16px;
     }
+
+    table {
+        table-layout: fixed;
+
+        th,
+        td {
+            box-sizing: border-box;
+            padding: 0 16px;
+            border: 1px solid black;
+        }
+    }
 }

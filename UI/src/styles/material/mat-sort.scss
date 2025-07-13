@@ -1,0 +1,14 @@
+@mixin overflow-ellipsis {
+    .mat-sort-header-container {
+        .mat-sort-header-content {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.mat-sort-header {
+    @include overflow-ellipsis;
+}

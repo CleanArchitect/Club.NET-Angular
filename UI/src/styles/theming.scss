@@ -18,9 +18,7 @@ body {
     );
 }
 
-h1 { font: var(--mat-sys-display-large); }
-h2 { font: var(--mat-sys-display-medium); }
-h3 { font: var(--mat-sys-display-small); }
-h4 { font: var(--mat-sys-headline-large); }
-h5 { font: var(--mat-sys-headline-medium); }
-h6 { font: var(--mat-sys-headline-small); }
+h1 { font: var(--mat-sys-headline-small); }
+h2 { font: var(--mat-sys-title-large); }
+h3 { font: var(--mat-sys-title-medium); }
+h4 { font: var(--mat-sys-title-small); }

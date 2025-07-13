@@ -1,0 +1,28 @@
+<mat-card class="clean-table-configuration-card">
+    <mat-card-header class="clean-table-configuration-card-header"><mat-card-title>Table Configuration</mat-card-title></mat-card-header>
+
+    <mat-divider />
+
+    <mat-selection-list class="clean-table-columns" cdkDropList (cdkDropListDropped)="drop($event)">
+        <mat-list-option
+            class="clean-table-column"
+            cdkDrag
+            cdkDragBoundary=".clean-table-columns"
+            cdkDragPreviewClass="clean-table-column-drag-preview"
+            [selected]="column.visible"
+            (click)="toggleColumnVisibility(column)"
+            [cdkDragDisabled]="!config.enableColumnMove"
+            *ngFor="let column of columns"
+        >
+            <mat-icon class="clean-table-column-drag-handle" matListItemIcon cdkDragHandle (click)="$event.stopPropagation()" *ngIf="config.enableColumnMove">drag_handle</mat-icon>
+
+            <span>{{ column.name }}</span>
+
+            <div class="clean-table-column-drag-placeholder" *cdkDragPlaceholder></div>
+        </mat-list-option>
+    </mat-selection-list>
+
+    <mat-card-actions>
+        <button mat-flat-button>Close</button>
+    </mat-card-actions>
+</mat-card>

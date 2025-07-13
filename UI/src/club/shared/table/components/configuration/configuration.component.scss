@@ -1,0 +1,50 @@
+@use '@angular/material' as mat;
+
+.clean-table-configuration {
+    display: flex;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+
+    .clean-table-configuration-card {
+        display: flex;
+        flex: 1;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+        @include mat.divider-overrides(
+            (
+                color: var(--mat-sys-outline-variant)
+            )
+        );
+
+        .clean-table-configuration-card-header {
+            padding: 16px;
+        }
+
+        .clean-table-column-drag-handle {
+            cursor: move;
+        }
+
+        .clean-table-column-drag-placeholder {
+            box-sizing: border-box;
+            height: 48px;
+            background: transparent;
+            transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        .clean-table-columns {
+            flex: 1;
+
+            .cdk-drop-list-dragging .clean-table-column:not(.cdk-drag-placeholder) {
+                transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+    }
+}
+
+.clean-table-column-drag-preview {
+    background-color: var(--mat-sys-surface-dim) !important;
+}

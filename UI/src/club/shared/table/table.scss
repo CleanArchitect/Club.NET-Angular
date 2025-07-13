@@ -79,6 +79,11 @@
             table-layout: fixed;
             width: max-content;
 
+            .mat-mdc-header-cell,
+            .mat-mdc-cell {
+                box-sizing: border-box;
+            }
+
             .mat-mdc-header-row {
                 .mat-column-actions {
                     position: relative !important;
@@ -87,9 +92,16 @@
             }
 
             .mat-mdc-row {
+                .clean-table-cell-content {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
                 .mat-column-actions {
                     background: none;
                     padding-left: 50px;
+                    text-align: right;
 
                     button {
                         opacity: 0;

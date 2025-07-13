@@ -12,7 +12,7 @@
 
         <button mat-icon-button (click)="export()" *ngIf="config.enableExport"><mat-icon>download</mat-icon></button>
 
-        <button mat-icon-button *ngIf="config.enableSettings"><mat-icon>settings</mat-icon></button>
+        <button mat-icon-button (click)="configuration(configurationButton)" *ngIf="config.enableSettings" #configurationButton><mat-icon>settings</mat-icon></button>
 
         <button mat-icon-button (click)="fullscreen()" *ngIf="config.enableFullscreen">
             <mat-icon>fullscreen</mat-icon>
@@ -24,12 +24,26 @@
 <div class="clean-table-content">
     <table mat-table matSort [dataSource]="table.dataSource" *ngIf="table">
         <ng-container [matColumnDef]="column.name" *ngFor="let column of table.columns.visible">
-            <th mat-header-cell mat-sort-header clean-resize="right" [clean-resize-config]="{ resizeHostElement: false }" (resized)="column.widthPx = $event.width" [style.width.px]="column.widthPx" [ngClass]="column.cssClass" [disabled]="!column.sortable" *matHeaderCellDef>{{ column.name }}</th>
+            <th
+                mat-header-cell
+                mat-sort-header
+                clean-resize="right"
+                [clean-resize-config]="{ resizeHostElement: false, minWidth: 100}"
+                (resized)="column.widthPx = $event.width"
+                [style.max-width.px]="column.widthPx"
+                [ngClass]="column.cssClass"
+                [disabled]="!column.sortable"
+                *matHeaderCellDef
+            >
+                {{ column.name }}
+            </th>
 
-            <td mat-cell [ngClass]="column.cssClass" [style.width.px]="column.widthPx" *matCellDef="let rowElement">
-                <ng-container [cleanTableColumn]="column" [rowElement]="rowElement" *ngIf="column.hasValue(rowElement); else empty" />
+            <td mat-cell [ngClass]="column.cssClass" [style.width.px]="column.widthPx" [style.max-width.px]="column.widthPx" *matCellDef="let rowElement">
+                <div class="clean-table-cell-content">
+                    <ng-container [cleanTableColumn]="column" [rowElement]="rowElement" *ngIf="column.hasValue(rowElement); else empty" />
 
-                <ng-template #empty><span>{{ column.emptyPlaceholder }}</span></ng-template>
+                    <ng-template #empty><span>{{ column.emptyPlaceholder }}</span></ng-template>
+                </div>
             </td>
         </ng-container>
 
