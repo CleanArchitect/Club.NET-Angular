@@ -6,7 +6,6 @@ import { CleanTableColumnComponent } from '../column.component';
 @Component({
     selector: 'clean-table-column-text',
     templateUrl: 'text.component.html',
-    styleUrl: 'text.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CleanSafeHtmlPipe]
 })

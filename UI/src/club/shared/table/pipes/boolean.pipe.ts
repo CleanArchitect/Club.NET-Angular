@@ -15,12 +15,12 @@ export interface ICleanBooleanPipeConfig {
 
 @Pipe({ name: 'cleanBoolean' })
 export class CleanBooleanPipe implements PipeTransform {
-    transform(value: boolean, config: ICleanBooleanPipeConfig, emptyPlaceholder: string = '-'): string {
+    transform(value: boolean, config: ICleanBooleanPipeConfig): string {
         switch (value) {
             case true: return config.trueValue;
             case false: return config.falseValue;
-            case undefined: return emptyPlaceholder ?? config.undefinedValue;
-            case null: return emptyPlaceholder ?? config.nullValue;
+            case undefined: return config.undefinedValue ?? '';
+            case null: return config.nullValue ?? '';
         }
     }
 }

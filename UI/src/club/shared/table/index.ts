@@ -5,4 +5,3 @@ export * from './directives';
 export * from './models';
 export * from './pipes';
 export * from './types/table.types';
-

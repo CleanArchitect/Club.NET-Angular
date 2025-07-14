@@ -6,6 +6,6 @@ export class CleanSafeHtmlPipe implements PipeTransform {
     private sanitizer = inject(DomSanitizer);
 
     transform(value: string): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(value);
+        return this.sanitizer.bypassSecurityTrustHtml(value) ?? '';
     }
 }

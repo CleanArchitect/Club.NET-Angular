@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CleanTableHeaderComponents } from './components/header/header';
 import { CleanArrayPipe } from './pipes/array.pipe';
@@ -26,7 +25,6 @@ import { CleanTableComponent } from './table';
         // CleanResizeDirective
     ],
     providers: [
-        DatePipe,
         CleanArrayPipe,
         CleanBooleanPipe,
         CleanSafeHtmlPipe

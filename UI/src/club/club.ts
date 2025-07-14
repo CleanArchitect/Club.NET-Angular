@@ -5,18 +5,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { IKnwuWedstrijd } from './knwu/wedstrijd/aanmelden/aanmelden';
-import { CleanResizeDirective, ICleanResizeEvent } from './shared/table';
+import { ICleanResizeEvent } from './shared/table';
 import { ICleanTableConfig } from './shared/table/config/table.config';
 import { CleanTableColumnArray } from './shared/table/models/columns/array';
 import { CleanTableColumnBoolean } from './shared/table/models/columns/boolean';
 import { CleanTableColumn } from './shared/table/models/columns/column';
 import { CleanTableColumnDate } from './shared/table/models/columns/date';
 import { CleanTableColumnText } from './shared/table/models/columns/text';
-import { CleanTableModule } from './shared/table/module';
+import { CleanTableModule } from './shared/table/table.module';
 
 @Component({
     selector: 'club-portal',
-    imports: [RouterModule, MatIconModule, MatToolbarModule, CleanResizeDirective, MatButtonModule, CleanTableModule],
+    imports: [RouterModule, MatIconModule, MatToolbarModule, /*CleanResizeDirective, */ MatButtonModule, CleanTableModule],
     templateUrl: './club.html',
     styleUrl: './club.scss'
 })
