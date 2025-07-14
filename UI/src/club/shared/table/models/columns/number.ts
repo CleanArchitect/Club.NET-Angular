@@ -45,11 +45,11 @@ export class CleanTableColumnNumber<TRowElement> extends CleanTableColumn<TRowEl
     private toText(rowElement: TRowElement): string {
         switch (this.style) {
             case 'decimal':
-                return this.decimalPipe.transform(this.value(rowElement), this.decimalOptions.digitsInfo, this.decimalOptions.locale ?? this.locale);
+                return this.decimalPipe.transform(this.value(rowElement), this.decimalOptions?.digitsInfo, this.decimalOptions?.locale ?? this.locale);
             case 'currency':
-                return this.currencyPipe.transform(this.value(rowElement), this.currencyOptions.currencyCode, this.currencyOptions.display, this.currencyOptions.digitsInfo, this.locale);
+                return this.currencyPipe.transform(this.value(rowElement), this.currencyOptions?.currencyCode, this.currencyOptions?.display, this.currencyOptions?.digitsInfo, this.currencyOptions?.locale ?? this.locale);
             case 'format':
-                return this.numberFormatPipe.transform(this.value(rowElement), this.formatOptions.locale ?? this.locale);
+                return this.numberFormatPipe.transform(this.value(rowElement), this.formatOptions?.locale ?? this.locale);
             case 'number':
             default: return this.value(rowElement)?.toString();
         }

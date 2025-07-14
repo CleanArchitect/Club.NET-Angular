@@ -5,7 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { IKnwuWedstrijd } from './knwu/wedstrijd/aanmelden/aanmelden';
-import { ICleanResizeEvent } from './shared/table';
+import { CleanTableColumnNumber, ICleanResizeEvent } from './shared/table';
 import { ICleanTableConfig } from './shared/table/config/table.config';
 import { CleanTableColumnArray } from './shared/table/models/columns/array';
 import { CleanTableColumnBoolean } from './shared/table/models/columns/boolean';
@@ -32,8 +32,9 @@ export class ClubComponent {
         new CleanTableColumnText(wedstrijd => wedstrijd.id.toString(), 'ID', { click: (wedstrijd) => console.log(wedstrijd), sortable: false }),
         new CleanTableColumnText(wedstrijd => wedstrijd.naam, 'Naam'),
         new CleanTableColumnDate(wedstrijd => wedstrijd.datum, 'Datum'),
-        new CleanTableColumnArray(wedstrijd => ['henk', 'piet', 'jan', 'kees'], 'Array', 'chips'),
-        new CleanTableColumnBoolean(_ => true, 'Boolean', 'icon', { icons: { trueValue: 'room', falseValue: 'passkey', nullValue: 'settings' } })
+        new CleanTableColumnArray(_ => ['henk', 'piet', 'jan', 'kees'], 'Array', 'chips'),
+        new CleanTableColumnBoolean(_ => true, 'Boolean', 'icon', { icons: { trueValue: 'room', falseValue: 'passkey', nullValue: 'settings' } }),
+        new CleanTableColumnNumber(_ => 3000000, 'Number', 'currency', { currencyOptions: { currencyCode: 'EUR', display: 'symbol', locale: 'nl-NL' } })
     ];
 
     event: ICleanResizeEvent = {} as ICleanResizeEvent;

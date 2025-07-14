@@ -1,8 +1,10 @@
+import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CleanTableHeaderComponents } from './components/header/header';
 import { CleanArrayPipe } from './pipes/array.pipe';
 import { CleanBooleanPipe } from './pipes/boolean.pipe';
 import { CleanSafeHtmlPipe } from './pipes/html.pipe';
+import { CleanNumberFormatPipe } from './pipes/number.pipe';
 import { CleanTableComponent } from './table';
 
 @NgModule({
@@ -25,9 +27,13 @@ import { CleanTableComponent } from './table';
         // CleanResizeDirective
     ],
     providers: [
+        DatePipe,
+        CurrencyPipe,
+        DecimalPipe,
         CleanArrayPipe,
         CleanBooleanPipe,
-        CleanSafeHtmlPipe
+        CleanSafeHtmlPipe,
+        CleanNumberFormatPipe 
     ]
 })
 export class CleanTableModule { }

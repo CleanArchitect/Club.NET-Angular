@@ -1,6 +1,10 @@
 @switch (column.style) {
-    @case ('number') {}
-    @case ('currency') {}
+    @case ('number') { 
+        <span>{{ column.format(rowElement) }}</span>
+    }
+    @case ('currency') {
+        <span>{{ column.format(rowElement) }}</span>
+    }
     @case ('format') {
         <span>{{ column.format(rowElement) }}</span>
     }
