@@ -1,4 +1,4 @@
-import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CleanTableHeaderComponents } from './components/header/header';
 import { CleanArrayPipe } from './pipes/array.pipe';
@@ -30,6 +30,7 @@ import { CleanTableComponent } from './table';
         DatePipe,
         CurrencyPipe,
         DecimalPipe,
+        PercentPipe,
         CleanArrayPipe,
         CleanBooleanPipe,
         CleanSafeHtmlPipe,

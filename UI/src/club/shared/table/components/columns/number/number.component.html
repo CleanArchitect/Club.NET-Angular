@@ -1,14 +1,13 @@
 @switch (column.style) {
-    @case ('number') { 
-        <span>{{ column.format(rowElement) }}</span>
-    }
-    @case ('currency') {
-        <span>{{ column.format(rowElement) }}</span>
-    }
-    @case ('format') {
-        <span>{{ column.format(rowElement) }}</span>
-    }
     @case ('progress') {
         <mat-progress-bar [value]="column.value(rowElement)" mode="determinate"></mat-progress-bar>
+    }
+    @case ('rating') {
+        <mat-icon class="clean-table-column-rating" [class.outlined]="star.outlined" *ngFor="let star of column.toStars(rowElement)">
+            {{ star.icon }}
+        </mat-icon>
+    }
+    @default {
+        <span>{{ column.format(rowElement) }}</span>
     }
 }

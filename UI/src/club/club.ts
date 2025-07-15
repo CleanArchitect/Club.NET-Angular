@@ -34,7 +34,7 @@ export class ClubComponent {
         new CleanTableColumnDate(wedstrijd => wedstrijd.datum, 'Datum'),
         new CleanTableColumnArray(_ => ['henk', 'piet', 'jan', 'kees'], 'Array', 'chips'),
         new CleanTableColumnBoolean(_ => true, 'Boolean', 'icon', { icons: { trueValue: 'room', falseValue: 'passkey', nullValue: 'settings' } }),
-        new CleanTableColumnNumber(_ => 3000000, 'Number', 'currency', { currencyOptions: { currencyCode: 'EUR', display: 'symbol', locale: 'nl-NL' } })
+        new CleanTableColumnNumber(_ => 3.5, 'Number', 'rating')
     ];
 
     event: ICleanResizeEvent = {} as ICleanResizeEvent;
