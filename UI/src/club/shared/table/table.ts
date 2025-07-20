@@ -14,7 +14,6 @@ import { CleanResizeDirective, CleanTable, CleanTableAppearance, CleanTableColum
     templateUrl: 'table.html',
     styleUrl: 'table.scss',
     host: { 'class': 'clean-table' },
-    // changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, CleanTableHeaderComponents, CleanTableColumnComponentDirective, CleanResizeDirective, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule]
 })
 export class CleanTableComponent<TRowElement> implements OnInit, OnChanges, AfterViewInit {
@@ -52,10 +51,6 @@ export class CleanTableComponent<TRowElement> implements OnInit, OnChanges, Afte
     }
 
     configuration(configButton: MatIconButton) {
-        const positionStrategy = this.overlay.position()
-            .flexibleConnectedTo(configButton._elementRef.nativeElement)
-            .withPositions([{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }]);
-
         const overlayRef = this.overlay.create({
             positionStrategy: this.overlay.position()
                 .global()

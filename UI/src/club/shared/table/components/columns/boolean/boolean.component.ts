@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CleanTableColumnBoolean } from '../../../models/columns/boolean';
+import { CleanTableColumnBoolean } from '../../../models/columns/boolean.column';
 import { CleanTableColumnComponent } from '../column.component';
 
 @Component({

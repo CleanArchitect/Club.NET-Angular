@@ -1,4 +1,4 @@
-import { CleanTableColumn } from '../models/columns/column';
+import { CleanTableColumn } from '../columns/column';
 
 export class CleanTableColumns<TRowElement> {
     actionsName = 'actions';

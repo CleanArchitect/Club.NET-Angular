@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CleanTableColumnText } from '../../../models/columns/text';
+import { CleanTableColumnText } from '../../../models/columns/text.column';
 import { CleanSafeHtmlPipe } from '../../../pipes/html.pipe';
 import { CleanTableColumnComponent } from '../column.component';
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { CleanTableColumnArray } from '../../../models/columns/array';
+import { CleanTableColumnArray } from '../../../models/columns/array.column';
 import { CleanArrayPipe } from '../../../pipes/array.pipe';
 import { CleanTableColumnComponent } from '../column.component';
 

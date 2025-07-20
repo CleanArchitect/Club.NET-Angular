@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CleanTableColumnDate } from '../../../models/columns/date';
+import { CleanTableColumnDate } from '../../../models/columns/date.column';
 import { CleanTableColumnComponent } from '../column.component';
 
 @Component({

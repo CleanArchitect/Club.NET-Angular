@@ -23,7 +23,8 @@ export class CleanResizeHandle {
         return new CleanResizeHandle(handleElement, config)
             .withClasses(position)
             .appendTo(resizeElement)
-            .init(resizeElement);
+            .registerReset(resizeElement)
+            .registerResize(resizeElement);
     }
 
     private withClasses(position: CleanResizeHandlePosition): this {
@@ -47,7 +48,27 @@ export class CleanResizeHandle {
         return this;
     }
 
-    private init(resizableElement: HTMLElement): this {
+    private registerReset(resizableElement: HTMLElement): this {
+        const originalWidth = resizableElement.style.width;
+        const originalHeight = resizableElement.style.height;
+
+        fromEvent<MouseEvent>(this.handleElement, 'dblclick')
+            .subscribe(() => this.reset(resizableElement, originalWidth, originalHeight));
+
+        return this;
+    }
+
+    private reset(resizableElement: HTMLElement, originalWidth: string, originalHeight: string): void {
+        if (this.resizesHeight)
+            resizableElement.style.height = originalHeight;
+
+        if (this.resizesWidth)
+            resizableElement.style.width = originalWidth;
+
+
+    }
+
+    private registerResize(resizableElement: HTMLElement): this {
         fromEvent<MouseEvent>(this.handleElement, 'mousedown', { passive: false })
             .pipe(tap(mouseDown => this.stopEvents(mouseDown)))
             .subscribe(mouseDown => this.startResize(mouseDown, resizableElement));
@@ -67,23 +88,23 @@ export class CleanResizeHandle {
     }
 
     private resize(resizableElement: HTMLElement, startWidth: number, startHeight: number, startEvent: MouseEvent, moveEvent: MouseEvent): void {
-        const newWidth = startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width');
-        const newHeight = startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height');
+        // const newWidth = startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width');
+        // const newHeight = startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height');
 
-        if (this.config.resizeHostElement && this.resizesWidth)
-            resizableElement.style.width = `${newWidth}px`;
+        if (this.resizesWidth)
+            resizableElement.style.width = `${startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width')}px`;
 
-        if (this.config.resizeHostElement && this.resizesHeight)
-            resizableElement.style.height = `${newHeight}px`;
+        if (this.resizesHeight)
+            resizableElement.style.height = `${startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height')}px`;
 
-        this.emitEvent(resizableElement, newWidth, newHeight);
+        this.emitEvent(resizableElement);
     }
 
-    private emitEvent(resizableElement: HTMLElement, width: number, height: number): void {
-        width = this.resizesWidth ? width : resizableElement.offsetWidth;
-        height = this.resizesHeight ? height : resizableElement.offsetHeight;
+    private emitEvent(resizableElement: HTMLElement): void {
+        // width = this.resizesWidth ? width : resizableElement.offsetWidth;
+        // height = this.resizesHeight ? height : resizableElement.offsetHeight;
 
-        this.resized.emit({ width, height });
+        this.resized.emit({ width: `${resizableElement.offsetWidth}px`, height: `${resizableElement.offsetHeight}px` });
     }
 
     private deltaMovement(currentPosition: number, startPosition: number, direction: CleanResizeDirection): number {
@@ -96,7 +117,7 @@ export class CleanResizeHandle {
         return direction === 'width' && this.handleElement.classList.contains('left')
             || direction === 'height' && this.handleElement.classList.contains('top');
     }
-    
+
     private stopEvents(mouseEvent: MouseEvent): void {
         mouseEvent.preventDefault();
         mouseEvent.stopPropagation();

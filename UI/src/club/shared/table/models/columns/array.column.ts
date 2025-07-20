@@ -18,6 +18,7 @@ export class CleanTableColumnArray<TRowElement> extends CleanTableColumn<TRowEle
     }
 
     override hasValue = (rowElement: TRowElement): boolean => this.value(rowElement)?.length > 0;
+    
     override exportAs = (rowElement: TRowElement): string => {
         const arrayValues = this.value(rowElement);
 

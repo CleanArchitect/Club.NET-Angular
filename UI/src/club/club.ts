@@ -5,18 +5,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { Guid } from 'guid-typescript';
 import { IKnwuWedstrijd } from './knwu/wedstrijd/aanmelden/aanmelden';
-import { CleanTableColumnNumber, ICleanResizeEvent } from './shared/table';
-import { ICleanTableConfig } from './shared/table/config/table.config';
-import { CleanTableColumnArray } from './shared/table/models/columns/array';
-import { CleanTableColumnBoolean } from './shared/table/models/columns/boolean';
-import { CleanTableColumn } from './shared/table/models/columns/column';
-import { CleanTableColumnDate } from './shared/table/models/columns/date';
-import { CleanTableColumnText } from './shared/table/models/columns/text';
-import { CleanTableModule } from './shared/table/table.module';
+import { CleanResizeDirective, CleanTableColumn, CleanTableColumnDate, CleanTableColumnText, CleanTableModule, ICleanResizeEvent, ICleanTableConfig } from './shared/table';
 
 @Component({
     selector: 'club-portal',
-    imports: [RouterModule, MatIconModule, MatToolbarModule, /*CleanResizeDirective, */ MatButtonModule, CleanTableModule],
+    imports: [RouterModule, MatIconModule, MatToolbarModule, CleanResizeDirective, MatButtonModule, CleanTableModule],
     templateUrl: './club.html',
     styleUrl: './club.scss'
 })
@@ -30,11 +23,11 @@ export class ClubComponent {
 
     columns: CleanTableColumn<IKnwuWedstrijd>[] = [
         new CleanTableColumnText(wedstrijd => wedstrijd.id.toString(), 'ID', { click: (wedstrijd) => console.log(wedstrijd), sortable: false }),
-        new CleanTableColumnText(wedstrijd => wedstrijd.naam, 'Naam'),
+        new CleanTableColumnText(wedstrijd => wedstrijd.naam, 'Naam', { width: '50%' }),
         new CleanTableColumnDate(wedstrijd => wedstrijd.datum, 'Datum'),
-        new CleanTableColumnArray(_ => ['henk', 'piet', 'jan', 'kees'], 'Array', 'chips'),
-        new CleanTableColumnBoolean(_ => true, 'Boolean', 'icon', { icons: { trueValue: 'room', falseValue: 'passkey', nullValue: 'settings' } }),
-        new CleanTableColumnNumber(_ => 3.5, 'Number', 'rating')
+        // new CleanTableColumnArray(_ => ['henk', 'piet', 'jan', 'kees'], 'Array', 'chips'),
+        // new CleanTableColumnBoolean(_ => true, 'Boolean', 'icon', { icons: { trueValue: 'room', falseValue: 'passkey', nullValue: 'settings' } }),
+        // new CleanTableColumnNumber(_ => 3.5, 'Number', 'rating')
     ];
 
     event: ICleanResizeEvent = {} as ICleanResizeEvent;

@@ -28,9 +28,9 @@
                 mat-header-cell
                 mat-sort-header
                 clean-resize="right"
-                [clean-resize-config]="{ resizeHostElement: false, minWidth: 100}"
-                (resized)="column.widthPx = $event.width"
-                [style.max-width.px]="column.widthPx"
+                [clean-resize-config]="{ resizeHostElement: false, minWidth: 100 }"
+                (resized)="column.width = $event.width"
+                [style.width]="column.width"
                 [ngClass]="column.cssClass"
                 [disabled]="!column.sortable"
                 *matHeaderCellDef
@@ -38,7 +38,7 @@
                 {{ column.name }}
             </th>
 
-            <td mat-cell [ngClass]="column.cssClass" [style.width.px]="column.widthPx" [style.max-width.px]="column.widthPx" *matCellDef="let rowElement">
+            <td mat-cell [ngClass]="column.cssClass" [style.max-width]="column.width" *matCellDef="let rowElement">
                 <div class="clean-table-cell-content">
                     <ng-container [cleanTableColumn]="column" [rowElement]="rowElement" *ngIf="column.hasValue(rowElement); else empty" />
 

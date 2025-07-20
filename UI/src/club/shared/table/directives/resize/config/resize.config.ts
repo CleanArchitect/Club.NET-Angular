@@ -4,8 +4,8 @@ export class CleanResizeConfig {
     minHeight? = 10;
     maxWidth?: number;
     maxHeight?: number;
-    resizeHostElement? = true;
-    dblclick?: () => void;
+    // resizeHostElement? = true;
+    // dblclick?: () => void;
 
     constructor(config: Partial<CleanResizeConfig>) {
         Object.assign(this, config);

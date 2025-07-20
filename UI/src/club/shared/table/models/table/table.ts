@@ -1,7 +1,7 @@
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CleanTableColumn } from '../models/columns/column';
+import { CleanTableColumn } from '../columns/column';
 import { CleanTableColumns } from './table.columns';
 import { CleanTableExport } from './table.export';
 

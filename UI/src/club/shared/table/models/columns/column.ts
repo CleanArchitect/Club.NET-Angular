@@ -3,13 +3,13 @@ import { CleanTableColumnComponent } from '../../components/columns/column.compo
 
 type ValidateKeys<T, U extends keyof T> = U;
 
-export type CleanTableColumnKeySubset = ValidateKeys<CleanTableColumn<any, any>, 'visible' | 'sortable' | 'click' | 'cssClass' | 'emptyPlaceholder'>;
+export type CleanTableColumnKeySubset = ValidateKeys<CleanTableColumn<any, any>, 'visible' | 'sortable' | 'click' | 'cssClass' | 'width' | 'emptyPlaceholder'>;
 
 export class CleanTableColumn<TRowElement, TValue = any> {
     visible: boolean = true;
     sortable: boolean = true;
     cssClass: string | string[] | Set<string> | { [key: string]: any; };
-    widthPx: number = null;
+    width: string = 'auto';
     order: number;
     emptyPlaceholder = '-';
 
