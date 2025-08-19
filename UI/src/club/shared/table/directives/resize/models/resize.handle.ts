@@ -1,5 +1,5 @@
 import { EventEmitter, Renderer2 } from '@angular/core';
-import { fromEvent, takeUntil, tap } from 'rxjs';
+import { fromEvent, takeUntil } from 'rxjs';
 import { CleanResizeConfig } from '../config/resize.config';
 import { ICleanResizeEvent } from '../events/resized.event';
 import { CleanResizeDirection, CleanResizeHandlePosition } from '../types/resize.types';
@@ -49,29 +49,23 @@ export class CleanResizeHandle {
     }
 
     private registerReset(resizableElement: HTMLElement): this {
-        const originalWidth = resizableElement.style.width;
-        const originalHeight = resizableElement.style.height;
-
         fromEvent<MouseEvent>(this.handleElement, 'dblclick')
-            .subscribe(() => this.reset(resizableElement, originalWidth, originalHeight));
+            .subscribe(event => this.stopEvents(event).reset(resizableElement));
 
         return this;
     }
 
-    private reset(resizableElement: HTMLElement, originalWidth: string, originalHeight: string): void {
+    private reset(resizableElement: HTMLElement): void {
         if (this.resizesHeight)
-            resizableElement.style.height = originalHeight;
+            resizableElement.style.height = '';
 
         if (this.resizesWidth)
-            resizableElement.style.width = originalWidth;
-
-
+            resizableElement.style.width = '';
     }
 
     private registerResize(resizableElement: HTMLElement): this {
         fromEvent<MouseEvent>(this.handleElement, 'mousedown', { passive: false })
-            .pipe(tap(mouseDown => this.stopEvents(mouseDown)))
-            .subscribe(mouseDown => this.startResize(mouseDown, resizableElement));
+            .subscribe(mouseDown => this.stopEvents(mouseDown).startResize(mouseDown, resizableElement));
 
         return this;
     }
@@ -81,31 +75,23 @@ export class CleanResizeHandle {
         const startHeight = resizableElement.offsetHeight;
 
         fromEvent<MouseEvent>(document, 'mousemove')
-            .pipe(
-                takeUntil(fromEvent<MouseEvent>(document, 'mouseup').pipe(tap(upEvent => this.stopEvents(upEvent)))),
-                tap(moveEvent => this.stopEvents(moveEvent)))
-            .subscribe(moveEvent => this.resize(resizableElement, startWidth, startHeight, startEvent, moveEvent));
+            .pipe(takeUntil(fromEvent<MouseEvent>(document, 'mouseup')))
+            .subscribe(moveEvent => this.stopEvents(moveEvent).resize(resizableElement, startWidth, startHeight, startEvent, moveEvent));
     }
 
     private resize(resizableElement: HTMLElement, startWidth: number, startHeight: number, startEvent: MouseEvent, moveEvent: MouseEvent): void {
-        // const newWidth = startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width');
-        // const newHeight = startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height');
-
         if (this.resizesWidth)
             resizableElement.style.width = `${startWidth + this.deltaMovement(moveEvent.clientX, startEvent.clientX, 'width')}px`;
 
         if (this.resizesHeight)
             resizableElement.style.height = `${startHeight + this.deltaMovement(moveEvent.clientY, startEvent.clientY, 'height')}px`;
 
-        this.emitEvent(resizableElement);
-    }
-
-    private emitEvent(resizableElement: HTMLElement): void {
-        // width = this.resizesWidth ? width : resizableElement.offsetWidth;
-        // height = this.resizesHeight ? height : resizableElement.offsetHeight;
-
         this.resized.emit({ width: `${resizableElement.offsetWidth}px`, height: `${resizableElement.offsetHeight}px` });
     }
+
+    // private emitEvent(resizableElement: HTMLElement): void {
+    //     this.resized.emit({ width: `${resizableElement.offsetWidth}px`, height: `${resizableElement.offsetHeight}px` });
+    // }
 
     private deltaMovement(currentPosition: number, startPosition: number, direction: CleanResizeDirection): number {
         const delta = currentPosition - startPosition;
@@ -118,8 +104,9 @@ export class CleanResizeHandle {
             || direction === 'height' && this.handleElement.classList.contains('top');
     }
 
-    private stopEvents(mouseEvent: MouseEvent): void {
+    private stopEvents(mouseEvent: MouseEvent): this {
         mouseEvent.preventDefault();
         mouseEvent.stopPropagation();
+        return this;
     }
 }
