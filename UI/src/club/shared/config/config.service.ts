@@ -4,7 +4,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { provideRouter } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { routes } from '../../club.routes';
+import { routes } from '../../routes';
 import { CONFIG, IConfig } from './config';
 
 @Injectable({ providedIn: 'root' })

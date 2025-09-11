@@ -1,0 +1,12 @@
+<mat-card class="wedstrijden" [style.width.px]="375">
+    <button mat-stroked-button [class.selected]="selectedWedstrijd === wedstrijd" (click)="selectedWedstrijd = wedstrijd" *ngFor="let wedstrijd of wedstrijden | async">{{ wedstrijd.naam }}</button>
+</mat-card>
+
+<mat-card class="categorieen" [style.width.px]="375" *ngIf="selectedWedstrijd">
+    <button mat-stroked-button [class.selected]="selectedCategorie === categorie" (click)="selectedCategorie = categorie" *ngFor="let categorie of selectedWedstrijd.categorieen">{{ categorie.naam }}</button>
+</mat-card>
+
+<button mat-flat-button (click)="bevestigen()" [disabled]="!selectedWedstrijd || !selectedCategorie">
+    <mat-icon>check</mat-icon>
+    <span>Bevestigen</span>
+</button>

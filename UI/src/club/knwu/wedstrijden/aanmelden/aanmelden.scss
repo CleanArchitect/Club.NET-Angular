@@ -1,0 +1,60 @@
+@use '@angular/material' as mat;
+
+.club-knwu-wedstrijd-aanmelder {
+    position: relative;
+    background-image: url('/images/background.webp');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &::before {
+        display: block;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--mat-sys-surface-container-low);
+        opacity: 0.9;
+        z-index: 0;
+        content: '';
+    }
+
+    .stepper {
+        width: 100%;
+        height: 100%;
+        background: none;
+
+        .step-start {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 250px;
+            min-height: 80px;
+
+            .btn-start {
+                transform: scale(2);
+            }
+        }
+    }
+
+    .mat-mdc-card {
+        border: none;
+        background-color: var(--mat-sys-surface-container-lowest);
+
+        .mat-mdc-card-content {
+            padding: 24px;
+        }
+    }
+
+    .mat-horizontal-stepper-wrapper {
+        height: 100%;
+
+        .mat-horizontal-content-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .wedstrijden,
+    .categorieen {
+        padding: 24px;
+    }
+
+    .wedstrijden {
+        display: flex;
+        flex-direction: column;
+
+        button + button {
+            margin-top: 24px;
+        }
+    }
+
+    .categorieen {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .mat-mdc-card {
+        margin-bottom: 24px;
+    }
+}

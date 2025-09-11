@@ -18,9 +18,11 @@ body {
     height: 100%;
 }
 
+body {
+    color: var(--mat-sys-on-surface);
+}
+
 form {
     display: flex;
     flex-direction: column;
 }
-
-

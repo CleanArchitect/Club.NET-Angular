@@ -1,0 +1,10 @@
+<mat-card [style.width.px]="375" *ngIf="deelnemer">
+    <mat-card-content class="startnummer">
+        <span>{{ deelnemer.startnummer }}</span>
+
+        <button mat-flat-button>
+            <mat-icon>refresh</mat-icon>
+            <span>Vernieuwen</span>
+        </button>
+    </mat-card-content>
+</mat-card>

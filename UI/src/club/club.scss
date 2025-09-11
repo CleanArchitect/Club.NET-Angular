@@ -1,31 +1,41 @@
-:host {
+.club-portal {
     // display: flex;
     // align-items: center;
     // justify-content: center;
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    display: block;
-    padding: 16px;
     max-width: 100%;
     // background: red;
     // overflow: auto;
 
-    .cube {
-        position: relative;
-        border: 1px solid black;
-        height: 100px;
-        width: 100px;
-        padding: 16px;
-        margin: 16px;
+    .toolbar {
+        > * + * {
+            margin-left: 8px;
+        }
     }
 
-    table {
-        table-layout: fixed;
+    // .cube {
+    //     position: relative;
+    //     border: 1px solid black;
+    //     height: 100px;
+    //     width: 100px;
+    //     padding: 16px;
+    //     margin: 16px;
+    // }
 
-        th,
-        td {
-            box-sizing: border-box;
-            padding: 0 16px;
-            border: 1px solid black;
-        }
+    // table {
+    //     table-layout: fixed;
+
+    //     th,
+    //     td {
+    //         box-sizing: border-box;
+    //         padding: 0 16px;
+    //         border: 1px solid black;
+    //     }
+    // }
+
+    router-outlet + * {
+        flex: 1;
     }
 }
