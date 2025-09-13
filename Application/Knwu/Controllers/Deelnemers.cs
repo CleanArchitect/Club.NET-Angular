@@ -21,4 +21,8 @@ public sealed class DeelnemerController(IInputHandler handler) : CleanController
     [HttpPatch("{id:guid}")]
     public async Task<ActionResult<UpdateKnwuWedstrijdCategorieDeelnemerStartnummerOutput>> UpdateStartnummer(Guid id) =>
         Ok(await handler.HandleAsync(new UpdateKnwuWedstrijdCategorieDeelnemerStartnummerInput(id)));
+
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id) =>
+        NoContentOutput(await handler.HandleAsync(new DeleteKnwuWedstrijdDeelnemerInput(id)));
 }

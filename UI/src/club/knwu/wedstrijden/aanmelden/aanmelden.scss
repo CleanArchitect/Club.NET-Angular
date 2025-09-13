@@ -1,5 +1,17 @@
 @use '@angular/material' as mat;
 
+@keyframes pulse-scale {
+    0% {
+        transform: scale(2);
+    }
+    50% {
+        transform: scale(2.2);
+    }
+    100% {
+        transform: scale(2);
+    }
+}
+
 .club-knwu-wedstrijd-aanmelder {
     position: relative;
     background-image: url('/images/background.webp');
@@ -14,7 +26,7 @@
         height: 100%;
         width: 100%;
         background-color: var(--mat-sys-surface-container-low);
-        opacity: 0.9;
+        opacity: 0.7;
         z-index: 0;
         content: '';
     }
@@ -28,11 +40,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-width: 250px;
-            min-height: 80px;
+            min-width: 300px;
+            min-height: 100px;
 
             .btn-start {
                 transform: scale(2);
+
+                &:not(:hover) {
+                    animation: pulse-scale 5s ease-in-out infinite;
+                }
             }
         }
     }

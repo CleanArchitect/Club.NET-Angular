@@ -2,11 +2,12 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, HostBinding, inject, Input, OnChanges, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CleanResizeDirective, CleanTable, CleanTableAppearance, CleanTableColumn, CleanTableColumnComponentDirective, CleanTableConfigurationComponent, CleanTableEvent, CleanTableHeaderComponents, ICleanTableConfig } from '.';
 
 @Component({
@@ -14,7 +15,7 @@ import { CleanResizeDirective, CleanTable, CleanTableAppearance, CleanTableColum
     templateUrl: 'table.html',
     styleUrl: 'table.scss',
     host: { 'class': 'clean-table' },
-    imports: [CommonModule, CleanTableHeaderComponents, CleanTableColumnComponentDirective, CleanResizeDirective, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule]
+    imports: [CommonModule, CleanTableHeaderComponents, CleanTableColumnComponentDirective, CleanResizeDirective, MatTableModule, MatSortModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatTooltipModule]
 })
 export class CleanTableComponent<TRowElement> implements OnInit, OnChanges, AfterViewInit {
     private hostContainerRef = inject(ViewContainerRef);
@@ -50,7 +51,7 @@ export class CleanTableComponent<TRowElement> implements OnInit, OnChanges, Afte
             .addSort(this.sort);
     }
 
-    configuration(configButton: MatIconButton) {
+    configuration() {
         const overlayRef = this.overlay.create({
             positionStrategy: this.overlay.position()
                 .global()

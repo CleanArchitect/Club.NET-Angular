@@ -1,17 +1,21 @@
 .club-portal {
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 100%;
-    // background: red;
-    // overflow: auto;
 
     .toolbar {
+        min-height: 64px;
+
+        .active-link {
+            background-color: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+        }
+
+        .menu {
+            flex: 1;
+        }
+
         > * + * {
-            margin-left: 8px;
+            margin-left: 16px;
         }
     }
 
@@ -22,17 +26,6 @@
     //     width: 100px;
     //     padding: 16px;
     //     margin: 16px;
-    // }
-
-    // table {
-    //     table-layout: fixed;
-
-    //     th,
-    //     td {
-    //         box-sizing: border-box;
-    //         padding: 0 16px;
-    //         border: 1px solid black;
-    //     }
     // }
 
     router-outlet + * {

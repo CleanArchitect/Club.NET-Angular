@@ -1,21 +1,19 @@
 <mat-stepper class="stepper no-header" linear #stepper>
     <mat-step>
-        <div class="step-start" [style.min-height.px]="300">
-            <button class="btn-start" mat-flat-button (click)="stepper.next()">Aanmelden</button>
+        <div class="step-start">
+            <button class="btn-start" mat-flat-button (click)="started = true; stepper.next()">Aanmelden</button>
         </div>
     </mat-step>
 
     <mat-step>
-        <button mat-icon-button (click)="stepper.previous()"><mat-icon>arrow_back</mat-icon></button>
-
-        <knwu-wedstrijd-aanmelden-lid (knwuLid)="knwuLid = $event; stepper.next()" />
+        <knwu-wedstrijd-aanmelden-lid (annuleren)="reset(stepper);" (knwuLid)="knwuLid = $event; stepper.next()" *ngIf="started" />
     </mat-step>
 
     <mat-step>
-        <knwu-wedstrijd-aanmelden-wedstrijd [knwuLid]="knwuLid" (deelnemer)="deelnemer = $event; stepper.next()" />
+        <knwu-wedstrijd-aanmelden-wedstrijd [knwuLid]="knwuLid" (deelnemer)="deelnemer = $event; stepper.next()" *ngIf="knwuLid" />
     </mat-step>
 
     <mat-step>
-        <knwu-wedstrijd-aanmelden-deelnemer [deelnemer]="deelnemer" />
+        <knwu-wedstrijd-aanmelden-deelnemer [deelnemer]="deelnemer" (afronden)="reset(stepper);" *ngIf="deelnemer" />
     </mat-step>
 </mat-stepper>

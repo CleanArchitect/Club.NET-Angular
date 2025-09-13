@@ -2,24 +2,47 @@
     display: flex;
     flex-direction: column;
 
-    .wedstrijden,
-    .categorieen {
-        padding: 24px;
-    }
-
     .wedstrijden {
         display: flex;
         flex-direction: column;
+        justify-content: center;
 
-        button + button {
-            margin-top: 24px;
+        .wedstrijd + .wedstrijd {
+            margin-top: 16px;
         }
     }
 
     .categorieen {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-evenly;
+
+        .categorie {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            min-width: 0;
+            padding: 0;
+        }
+    }
+
+    .option {
+        background-color: color-mix(in srgb, var(--mat-sys-primary) 20%, transparent);
+        color: var(--mat-sys-on-primary-variant);
+
+        &.selected {
+            background-color: var(--mat-sys-primary);
+            color: var(--mat-sys-surface-container-lowest);
+        }
+    }
+
+    .actions {
+        padding: 0 24px 24px;
+        flex-direction: column;
+        align-items: unset;
     }
 
     .mat-mdc-card {

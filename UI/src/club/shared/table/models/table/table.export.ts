@@ -10,6 +10,10 @@ export class CleanTableExport {
         const workbook = new Workbook();
         const worksheet = workbook.addWorksheet(sheetname ?? 'Sheet1');
 
+        worksheet.columns = Object
+            .keys(this.exportRowElements[0] ?? {})
+            .map(key => ({ header: key, key }));
+
         worksheet.addRows(this.exportRowElements);
 
         workbook.xlsx

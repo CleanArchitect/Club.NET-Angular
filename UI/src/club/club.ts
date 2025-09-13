@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { RouterModule } from '@angular/router';
     styleUrl: 'club.scss',
     host: { class: 'club-portal' },
     encapsulation: ViewEncapsulation.None,
-    imports: [RouterModule, MatToolbarModule, MatButtonModule],
+    imports: [RouterModule, MatToolbarModule, MatButtonModule, MatIconModule],
 })
 export class ClubComponent {
     // data: IKnwuWedstrijd[] = [

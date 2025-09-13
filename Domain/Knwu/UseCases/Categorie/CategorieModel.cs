@@ -8,14 +8,14 @@ public sealed class KnwuWedstrijdCategorieModel
 
     public decimal? Bedrag { get; }
 
-    public IReadOnlyCollection<KnwuWedstrijdDeelnemerExcelModel> Deelnemers { get; init; }
+    public IReadOnlyCollection<KnwuWedstrijdDeelnemerModel> Deelnemers { get; init; }
 
     internal KnwuWedstrijdCategorieModel(KnwuWedstrijdCategorie categorie)
     {
         Id = categorie.Id;
         Naam = categorie.Naam;
         Bedrag = categorie.Bedrag;
-        Deelnemers = [.. categorie.Deelnemers.Select(KnwuWedstrijdDeelnemerExcelModel.Create)];
+        Deelnemers = [.. categorie.Deelnemers.Select(KnwuWedstrijdDeelnemerModel.Create)];
     }
 
     internal static KnwuWedstrijdCategorieModel Create(KnwuWedstrijdCategorie categorie) =>

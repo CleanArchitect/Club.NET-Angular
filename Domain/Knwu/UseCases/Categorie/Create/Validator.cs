@@ -9,8 +9,8 @@ internal sealed class CreateKnwuWedstrijdCategorieInputValidator : AbstractValid
         RuleFor(input => input.Naam)
             .NotEmpty();
 
-        RuleFor(input => input.Bedrag)
-            .NotEmpty();
+        //RuleFor(input => input.Bedrag)
+        //    .NotEmpty();
 
         RuleFor(input => input.StartnummerBegin)
             .NotEmpty();

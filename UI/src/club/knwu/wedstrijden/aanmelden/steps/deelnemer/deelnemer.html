@@ -1,10 +1,19 @@
-<mat-card [style.width.px]="375" *ngIf="deelnemer">
-    <mat-card-content class="startnummer">
-        <span>{{ deelnemer.startnummer }}</span>
+<mat-card [style.width.px]="275" *ngIf="deelnemer">
+    <mat-card-content class="deelnemer">
+        <div class="startnummer">
+            <h1>Startnummer</h1>
 
-        <button mat-flat-button>
+            <span class="startnummer">{{ deelnemer.startnummer }}</span>
+        </div>
+
+        <button mat-button (click)="updateStartnummer()">
             <mat-icon>refresh</mat-icon>
-            <span>Vernieuwen</span>
+            <span>Niet beschikbaar</span>
+        </button>
+
+        <button mat-flat-button (click)="afronden.emit()">
+            <mat-icon>check</mat-icon>
+            <span>Afronden</span>
         </button>
     </mat-card-content>
 </mat-card>

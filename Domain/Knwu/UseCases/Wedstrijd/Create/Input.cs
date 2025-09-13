@@ -8,7 +8,7 @@ public sealed class CreateKnwuWedstrijdInput : ICreateInput
 
     public string Naam { get; set; }
 
-    public DateOnly Datum { get; set; }
+    public DateTime Datum { get; set; }
 
     public IEnumerable<CreateKnwuWedstrijdCategorieInput> Categorieen { get; set; }
 }

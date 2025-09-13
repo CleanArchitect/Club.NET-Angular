@@ -1,0 +1,3 @@
+<ng-container *ngIf="control?.errors as errors">
+    <span *ngFor="let error of errors | keyvalue">{{ errorMessage(error) }}</span>
+</ng-container>

@@ -1,0 +1,39 @@
+.mdc-link {
+    color: var(--mat-sys-primary);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+
+    &:visited {
+        color: var(--mat-sys-primary);
+    }
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+    }
+
+    &:active {
+        opacity: 0.9;
+    }
+
+    :focus-visible {
+        outline: none;
+        border-radius: 4px;
+        box-shadow: 0 0 0 3px color-mix(in oklab, currentColor 28%, transparent);
+    }
+
+    &[disabled='true'] {
+        color: var(--mat-sys-on-surface-variant);
+        pointer-events: none;
+        opacity: 0.64;
+        text-decoration: none;
+    }
+}
+
+.mdc-chip-link {
+    .mdc-evolution-chip__action--presentational {
+        cursor: pointer;
+    }
+}

@@ -1,6 +1,12 @@
 :host {
-    display: flex;
-    flex-direction: column;
+    .lid {
+        display: flex;
+        flex-direction: column;
+
+        > button {
+            margin-top: 8px;
+        }
+    }
 
     .scanner {
         display: none;

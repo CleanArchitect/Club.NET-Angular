@@ -5,18 +5,6 @@ export interface IKnwuLid {
     uciId: string;
 }
 
-export interface IKnwuWedstrijdCategorie {
-    id: Guid;
-    naam: string;
-}
-
-export interface IKnwuWedstrijd {
-    id: Guid;
-    naam: string;
-    datum: Date;
-    categorieen: IKnwuWedstrijdCategorie[];
-}
-
 export interface IKnwuWedstrijdDeelnemer extends IKnwuLid {
     id: Guid;
     categorieId: Guid;

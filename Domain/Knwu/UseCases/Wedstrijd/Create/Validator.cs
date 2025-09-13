@@ -12,6 +12,9 @@ internal sealed class CreateKnwuWedstrijdInputValidator : AbstractValidator<Crea
         RuleFor(input => input.Categorieen)
             .NotEmpty();
 
+        RuleFor(input => input.Datum)
+            .NotEmpty();
+
         RuleForEach(input => input.Categorieen)
             .NotEmpty()
             .SetValidator(categorieValidator);

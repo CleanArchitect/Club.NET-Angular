@@ -24,7 +24,7 @@ export class CleanTableColumnDate<TRowElement> extends CleanTableColumn<TRowElem
 
     format = (rowElement: TRowElement): string => this.datePipe.transform(this.value(rowElement), this.dateOptions?.format, this.dateOptions?.timezone, this.dateOptions?.locale);
 
-    override sortBy = (rowElement: TRowElement): string | number => this.value(rowElement).getTime();
+    override sortBy = (rowElement: TRowElement): string | number => new Date(this.value(rowElement)).getTime();
     override filterBy = (rowElement: TRowElement): string => this.format(rowElement) ?? '';
     override exportAs = (rowElement: TRowElement): string => this.format(rowElement) ?? '';
 }

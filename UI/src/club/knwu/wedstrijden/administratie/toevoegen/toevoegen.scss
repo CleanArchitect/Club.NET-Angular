@@ -1,0 +1,22 @@
+:host {
+    .titel {
+        display: flex;
+        align-items: center;
+    }
+
+    .categorie {
+        display: flex;
+
+        .naam {
+            flex: 1;
+        }
+
+        .nummer {
+            width: 80px;
+        }
+
+        .field + .field {
+            margin-left: 8px;
+        }
+    }
+}

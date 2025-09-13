@@ -1,4 +1,5 @@
 @use "@angular/material" as mat;
+@use "./links.scss";
 
 html {
     @include mat.theme(

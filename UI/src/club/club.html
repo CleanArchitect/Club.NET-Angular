@@ -1,13 +1,13 @@
 <mat-toolbar class="toolbar">
-    <img src="images/rwcahoy_logo.png" alt="Logo" height="45">
+    <img src="images/rwcahoy_logo.png" alt="Logo" height="45" />
 
-    <button mat-button>Aanmelden</button>
+    <div class="menu">
+        <button mat-button routerLink="knwu/aanmelden" routerLinkActive="active-link">Aanmelden</button>
+    </div>
+
+    <button mat-icon-button routerLink="knwu/administratie" routerLinkActive="active-link"><mat-icon>account_circle</mat-icon></button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
-<!-- <clean-table [data]="data" [columns]="columns" [config]="config" appearance="outlined">
-    <clean-table-title>Wedstrijden</clean-table-title>
-</clean-table> -->
 
 <!-- <div class="cube" clean-resize="all" [clean-resize-config]="{ maxWidth: 200, maxHeight: 200, minWidth: 50, minHeight: 50 }"></div> -->
-

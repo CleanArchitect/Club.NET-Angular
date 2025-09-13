@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { KnwuWedstrijdDeelnemerService } from '../../../services/deelnemer.service';
 import { IKnwuWedstrijdDeelnemer } from '../../models/wedstrijd';
 
 @Component({
@@ -13,4 +14,13 @@ import { IKnwuWedstrijdDeelnemer } from '../../models/wedstrijd';
 })
 export class KnwuWedstrijdAanmeldenDeelnemerStep {
     @Input() deelnemer: IKnwuWedstrijdDeelnemer;
- }
+    @Output() afronden = new EventEmitter<void>();
+
+    private service = inject(KnwuWedstrijdDeelnemerService);
+
+    updateStartnummer(): void {
+        this.service
+            .updateStartnummer(this.deelnemer.id)
+            .subscribe(deelnemer => Object.assign(this.deelnemer, deelnemer));
+    }
+}

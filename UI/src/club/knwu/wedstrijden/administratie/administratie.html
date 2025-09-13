@@ -1,0 +1,15 @@
+<clean-table [data]="wedstrijden | async" [columns]="wedstrijdColumns" [config]="wedstrijdConfig" appearance="outlined">
+    <clean-table-title>Wedstrijden</clean-table-title>
+
+    <clean-table-actions>
+        <button mat-icon-button matTooltip="Toevoegen" (click)="toevoegen()"><mat-icon>add</mat-icon></button>
+    </clean-table-actions>
+</clean-table>
+
+<clean-table [data]="selectedCategorie.deelnemers" [columns]="deelnemerColumns" [config]="deelnemerConfig" appearance="outlined" *ngIf="selectedCategorie">
+    <clean-table-title>{{ selectedWedstrijd.naam }} - {{ selectedCategorie.naam }} - Deelnemers</clean-table-title>
+
+    <clean-table-actions>
+        <button mat-icon-button matTooltip="Sluiten" (click)="deselect()"><mat-icon>close</mat-icon></button>
+    </clean-table-actions>
+</clean-table>

@@ -1,26 +1,32 @@
-<zxing-scanner class="scanner" [timeBetweenScans]="50" (scanSuccess)="scanSuccess($event)" *ngIf="scanEnabled" />
+<zxing-scanner class="scanner" [timeBetweenScans]="50" (scanSuccess)="scanSuccess($event)" [enable]="scanEnabled" />
 
 <mat-card [style.width.px]="375">
-    <mat-card-content>
+    <mat-card-content class="lid">
         <form [formGroup]="form">
             <mat-form-field appearance="outline">
                 <mat-label>KNWU-ID</mat-label>
 
-                <input matInput placeholder="Scan QR" formControlName="knwuId" (focus)="enableScan('knwuId')" (blur)="disableScan()" />
+                <input matInput placeholder="Scan QR" formControlName="knwuId" (focus)="enableScan('knwuId')" (blur)="disableScan()" [required]="!form.get('uciId').value" />
 
                 <button mat-icon-button matSuffix (click)="enableScan('knwuId')"><mat-icon>qr_code_scanner</mat-icon></button>
+
+                <mat-error errors />
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>UCI-ID</mat-label>
 
-                <input matInput placeholder="Scan QR" formControlName="uciId" (focus)="enableScan('uciId')" (blur)="disableScan()" />
+                <input matInput placeholder="Scan QR" formControlName="uciId" (focus)="enableScan('uciId')" (blur)="disableScan()" [required]="!form.get('knwuId').value" />
 
                 <button mat-icon-button matSuffix (click)="enableScan('uciId')"><mat-icon>qr_code_scanner</mat-icon></button>
+
+                <mat-error errors />
             </mat-form-field>
         </form>
 
-        <button mat-flat-button (click)="aanmelden()">
+        <button mat-stroked-button (click)="annuleren.emit()">Annuleren</button>
+
+        <button mat-flat-button [disabled]="!form.valid" (click)="aanmelden()">
             <mat-icon>arrow_forward</mat-icon>
             <span>Aanmelden</span>
         </button>
