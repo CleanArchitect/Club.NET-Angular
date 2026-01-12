@@ -1,0 +1,8 @@
+<mat-form-field [appearance]="field.formFieldOptions?.appearance" [floatLabel]="field.formFieldOptions?.floatLabel" [hideRequiredMarker]="field.formFieldOptions?.hideRequiredMarker">
+    <mat-label>{{ field.label }}</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="field.formControl" />
+    <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker" />
+    <mat-datepicker #picker />
+    <mat-error *ngIf="field.formControl.errors">Verplicht</mat-error>
+</mat-form-field>

@@ -1,9 +1,9 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { CleanTableColumnComponent } from '../../components/columns/column.component';
 
-type ValidateKeys<T, U extends keyof T> = U;
+export type KeysOf<T, TKey extends keyof T> = TKey;
 
-export type CleanTableColumnKeySubset = ValidateKeys<CleanTableColumn<any, any>, 'visible' | 'sortable' | 'click' | 'cssClass' | 'width' | 'emptyPlaceholder'>;
+export type CleanTableColumnKeySubset = KeysOf<CleanTableColumn<any, any>, 'visible' | 'sortable' | 'click' | 'cssClass' | 'width' | 'emptyPlaceholder'>;
 
 export class CleanTableColumn<TRowElement, TValue = any> {
     visible: boolean = true;

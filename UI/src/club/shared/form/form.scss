@@ -1,0 +1,24 @@
+:host {
+    form {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+
+        section {
+            display: flex;
+            flex-direction: column;
+
+            fieldset {
+                display: flex;
+                gap: 4px;
+                border: 0;
+                padding: 0;
+            }
+
+            + section {
+                border-left: 1px solid black;
+                padding-left: 16px;
+            }
+        }
+    }
+}
