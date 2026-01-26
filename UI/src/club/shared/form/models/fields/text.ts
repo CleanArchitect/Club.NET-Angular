@@ -7,7 +7,7 @@ export const text = <TModel>(key: KeyOf<TModel, string | number>, label: string,
 
 export class CleanFormFieldText<TModel = unknown, TValue = string | number> extends CleanFormField<TModel, TValue> {
     maxLength: string;
-    type: 'text' | 'search' | 'url' | 'tel' | 'email' = 'text';
+    type: 'text' | 'search' | 'url' | 'tel' | 'email' | 'number' | 'textarea' = 'text';
 
     constructor(
         key: KeyOf<TModel, TValue>,
@@ -15,5 +15,7 @@ export class CleanFormFieldText<TModel = unknown, TValue = string | number> exte
         options?: Partial<CleanFormFieldText>
     ) {
         super(key, label, CleanFormFieldTextComponent, options);
+
+        Object.assign(this, options);
     }
 }

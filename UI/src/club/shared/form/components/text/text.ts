@@ -11,4 +11,4 @@ import { CleanFormFieldComponent } from "../field.component";
     templateUrl: 'text.html',
     imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule]
 })
-export class CleanFormFieldTextComponent extends CleanFormFieldComponent<CleanFormFieldText> { }
+export class CleanFormFieldTextComponent extends CleanFormFieldComponent<CleanFormFieldText> {}

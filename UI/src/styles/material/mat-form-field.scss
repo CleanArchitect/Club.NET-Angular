@@ -1,0 +1,16 @@
+@mixin fix-widths {
+    width: 100%;
+    max-width: 300px;
+
+    .mat-mdc-form-field-infix {
+        width: unset;
+    }
+
+    &:has(textarea) {
+        max-width: 210mm;
+    }
+}
+
+.mat-mdc-form-field {
+    @include fix-widths;
+}

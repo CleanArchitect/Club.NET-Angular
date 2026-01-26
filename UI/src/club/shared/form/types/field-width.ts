@@ -1,0 +1,1 @@
+export type CleanFormWidth = 'quarter' | 'half' | 'three-quarter' | 'full';

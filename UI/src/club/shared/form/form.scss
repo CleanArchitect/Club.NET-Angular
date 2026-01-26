@@ -2,22 +2,33 @@
     form {
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        gap: 24px;
 
         section {
             display: flex;
             flex-direction: column;
+            flex: 1;
+            max-width: 325px;
 
             fieldset {
                 display: flex;
-                gap: 4px;
-                border: 0;
-                padding: 0;
+                align-items: center;
+                gap: 8px;
+                min-width: 200px;
+                max-width: 300px;
             }
 
             + section {
                 border-left: 1px solid black;
                 padding-left: 16px;
+            }
+        }
+
+        section:last-of-type {
+            max-width: unset;
+
+            fieldset:has(textarea) {
+                max-width: unset;
             }
         }
     }

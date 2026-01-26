@@ -15,5 +15,7 @@ export class CleanFormFieldDate<TModel = any, TValue = Date | string> extends Cl
         options?: Partial<CleanFormFieldDate>
     ) {
         super(key, label, CleanFormFieldDatepickerComponent, options);
+
+        Object.assign(this, options);
     }
 }

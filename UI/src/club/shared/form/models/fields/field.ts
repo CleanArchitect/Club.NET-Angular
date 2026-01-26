@@ -4,8 +4,9 @@ import { MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { KeysOf } from '../../../table';
 import { KeyOf } from '../../../types/key-of';
 import { CleanFormFieldComponent } from '../../components/field.component';
+import { CleanFormWidth } from '../../types/field-width';
 
-export type CleanFormFieldOptions = KeysOf<CleanFormField, 'hint' | 'tooltip' | 'validators' | 'asyncValidators' | 'formFieldOptions' | 'disabled' | 'value' | 'valueChanges'>;
+export type CleanFormFieldOptions = KeysOf<CleanFormField, 'hint' | 'tooltip' | 'validators' | 'asyncValidators' | 'formFieldOptions' | 'disabled' | 'value' | 'valueChanges' | 'width'>;
 
 export const group = <TModel>(...fields: [CleanFormField<TModel>, CleanFormField<TModel>, ...CleanFormField<TModel>[]]): CleanFormField<TModel>[] =>
     fields;
@@ -18,7 +19,8 @@ export abstract class CleanFormField<TModel = any, TValue = any> {
     validators: ValidatorFn | ValidatorFn[];
     asyncValidators: AsyncValidatorFn | AsyncValidatorFn[];
     formFieldOptions: MatFormFieldDefaultOptions;
-    disabled: boolean;    
+    disabled: boolean;
+    width: CleanFormWidth = 'full';
 
     get formControl(): FormControl { return this.control; }
     get required(): boolean { return this.control?.hasValidator(Validators.required); }
