@@ -4,7 +4,6 @@ import { MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { KeysOf } from '../../../table';
 import { KeyOf } from '../../../types/key-of';
 import { CleanFormFieldComponent } from '../../components/field.component';
-import { CleanFormWidth } from '../../types/field-width';
 
 export type CleanFormFieldOptions = KeysOf<CleanFormField, 'hint' | 'tooltip' | 'validators' | 'asyncValidators' | 'formFieldOptions' | 'disabled' | 'value' | 'valueChanges' | 'width'>;
 
@@ -20,7 +19,7 @@ export abstract class CleanFormField<TModel = any, TValue = any> {
     asyncValidators: AsyncValidatorFn | AsyncValidatorFn[];
     formFieldOptions: MatFormFieldDefaultOptions;
     disabled: boolean;
-    width: CleanFormWidth = 'full';
+    width: number;
 
     get formControl(): FormControl { return this.control; }
     get required(): boolean { return this.control?.hasValidator(Validators.required); }

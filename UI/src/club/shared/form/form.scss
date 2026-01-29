@@ -2,6 +2,7 @@
     form {
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 24px;
 
         section {
@@ -29,6 +30,20 @@
 
             fieldset:has(textarea) {
                 max-width: unset;
+            }
+        }
+
+        @media (max-width: 800px) {
+            gap: 0;
+
+            section {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        
+            section + section {
+                border-left: none;
+                padding-left: 0;
             }
         }
     }

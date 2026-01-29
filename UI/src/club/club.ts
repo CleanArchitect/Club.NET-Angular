@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +18,7 @@ import { CleanFormBuilder } from './shared/form/services/form-builder.service';
     styleUrl: 'club.scss',
     host: { class: 'club-portal' },
     encapsulation: ViewEncapsulation.None,
-    imports: [RouterModule, MatToolbarModule, MatButtonModule, MatIconModule, CleanFormComponent]
+    imports: [CommonModule, RouterModule, MatToolbarModule, MatButtonModule, MatIconModule, CleanFormComponent]
 })
 export class ClubComponent {
     private builder = inject(CleanFormBuilder);
@@ -28,7 +29,7 @@ export class ClubComponent {
         this.model,
         column(
             text('naam', 'Naam'),
-            group(text('naam', 'Postcode', { width: 'half' }), text('naam', 'Plaats'))
+            group(text('naam', 'Postcode', { width: 0.6 }), text('naam', 'Plaats'))
         ),
         column(text('knwuWedstrijdnummer', 'Nummer', { type: 'number' })),
         column(
@@ -36,4 +37,19 @@ export class ClubComponent {
             text('naam', 'Groot', { type: 'textarea' })
         )
     );
+
+    // async ngOnInit(): Promise<void> {
+    //     this.stapControls = await Promise.all(
+    //         this.stappen.map(async stap => ({
+    //             stap,
+    //             control: await this.createStapControl(stap)
+    //         }))
+    //     );
+    // }
+
+    // private async createStapControl(stap: IStap): Promise<FormGroup> {
+    //     return this.fb.group({
+    //         gebruikers: [stap.gebruikers ?? await firstValueFrom(this.getGebruikers(stap.type)), Validators.required]
+    //     });
+    // }
 }
