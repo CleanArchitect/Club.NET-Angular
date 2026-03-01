@@ -5,6 +5,13 @@ export type KeysOf<T, TKey extends keyof T> = TKey;
 
 export type CleanTableColumnKeySubset = KeysOf<CleanTableColumn<any, any>, 'visible' | 'sortable' | 'click' | 'cssClass' | 'width' | 'emptyPlaceholder'>;
 
+export const column = <TRowElement, TValue>(
+    value: (rowElement: TRowElement) => TValue,
+    name: string,
+    component: ComponentType<CleanTableColumnComponent<any>>,
+    options?: Partial<Pick<CleanTableColumn<TRowElement, TValue>, 'component' | CleanTableColumnKeySubset>>
+) => new CleanTableColumn(value, name, component, options);
+
 export class CleanTableColumn<TRowElement, TValue = any> {
     visible: boolean = true;
     sortable: boolean = true;

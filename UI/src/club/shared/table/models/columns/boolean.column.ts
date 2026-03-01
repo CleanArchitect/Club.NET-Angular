@@ -3,6 +3,13 @@ import { CleanTableColumnBooleanComponent } from '../../components/columns/boole
 import { CleanBooleanPipe, CleanBooleanTextIntl, ICleanBooleanPipeConfig } from '../../pipes/boolean.pipe';
 import { CleanTableColumn, CleanTableColumnKeySubset } from './column';
 
+export const booleanColumn = <TRowElement>(
+    value: (rowElement: TRowElement) => boolean,
+    name: string,
+    type: 'icon' | 'checkbox' | 'slide-toggle' | 'text',
+    options?: Partial<Pick<CleanTableColumnBoolean<TRowElement>, 'icons' | 'valueChanged' | 'hasValue' | CleanTableColumnKeySubset>>
+) => new CleanTableColumnBoolean(value, name, type, options);
+
 export class CleanTableColumnBoolean<TRowElement> extends CleanTableColumn<TRowElement, boolean> {
     private booleanPipe = inject(CleanBooleanPipe);
     private booleanTextIntl = inject(CleanBooleanTextIntl);

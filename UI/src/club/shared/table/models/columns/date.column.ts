@@ -3,6 +3,12 @@ import { inject } from '@angular/core';
 import { CleanTableColumnDateComponent } from '../../components/columns/date/date.component';
 import { CleanTableColumn, CleanTableColumnKeySubset } from './column';
 
+export const dateColumn = <TRowElement>(
+    value: (rowElement: TRowElement) => Date,
+    name: string,
+    options?: Partial<Pick<CleanTableColumnDate<TRowElement>, 'dateOptions' | CleanTableColumnKeySubset>>
+) => new CleanTableColumnDate(value, name, options);
+
 export class CleanTableColumnDate<TRowElement> extends CleanTableColumn<TRowElement, Date> {
     private datePipe = inject(DatePipe);
 

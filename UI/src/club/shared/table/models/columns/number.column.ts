@@ -4,6 +4,13 @@ import { CleanTableColumnNumberComponent } from '../..';
 import { CleanNumberFormatPipe } from '../../pipes/number.pipe';
 import { CleanTableColumn, CleanTableColumnKeySubset } from './column';
 
+export const numberColumn = <TRowElement>(
+    value: (rowElement: TRowElement) => number,
+    name: string,
+    style: 'raw' | 'decimal' | 'currency' | 'percentage' | 'rating' | 'progress' | 'format' = 'raw',
+    options?: Partial<Pick<CleanTableColumnNumber<TRowElement>, 'locale' | 'digitsInfo' | 'formatOptions' | 'currencyOptions' | CleanTableColumnKeySubset>>
+) => new CleanTableColumnNumber(value, name, style, options);
+
 export class CleanTableColumnNumber<TRowElement> extends CleanTableColumn<TRowElement, number> {
     private decimalPipe = inject(DecimalPipe);
     private currencyPipe = inject(CurrencyPipe);

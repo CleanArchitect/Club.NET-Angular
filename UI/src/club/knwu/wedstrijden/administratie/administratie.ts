@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Observable, take } from 'rxjs';
-import { CleanTableColumn, CleanTableColumnArray, CleanTableColumnDate, CleanTableColumnText, CleanTableModule, ICleanTableConfig } from '../../../shared/table';
+import { arrayColumn, CleanTableColumn, CleanTableModule, dateColumn, ICleanTableConfig, textColumn } from '../../../shared/table';
 import { IKnwuWedstrijdDeelnemer } from '../aanmelden/models/wedstrijd';
 import { IKnwuWedstrijd, IKnwuWedstrijdCategorie } from '../models/wedstrijd';
 import { KnwuWedstrijdDeelnemerService } from '../services/deelnemer.service';
@@ -30,10 +30,10 @@ export class KnwuWedstrijdAdministratie implements OnInit {
         actions: { delete: (wedstrijd: IKnwuWedstrijd) => this.service.delete(wedstrijd.id).subscribe(() => this.ngOnInit()) }
     };
     wedstrijdColumns: CleanTableColumn<IKnwuWedstrijd>[] = [
-        new CleanTableColumnText(wedstrijd => wedstrijd.knwuWedstrijdnummer, 'KNWU-Nummer'),
-        new CleanTableColumnText(wedstrijd => wedstrijd.naam, 'Naam'),
-        new CleanTableColumnDate(wedstrijd => wedstrijd.datum, 'Datum'),
-        new CleanTableColumnArray(wedstrijd => wedstrijd.categorieen, 'Categorieën', 'chips', { bulletIcon: 'patient_list', displayWith: (categorie: IKnwuWedstrijdCategorie) => categorie.naam, itemClick: (wedstrijd: IKnwuWedstrijd, categorie: IKnwuWedstrijdCategorie) => this.select(wedstrijd, categorie) })
+        textColumn(wedstrijd => wedstrijd.knwuWedstrijdnummer, 'KNWU-Nummer'),
+        textColumn(wedstrijd => wedstrijd.naam, 'Naam'),
+        dateColumn(wedstrijd => wedstrijd.datum, 'Datum'),
+        arrayColumn(wedstrijd => wedstrijd.categorieen, 'Categorieën', 'chips', { bulletIcon: 'patient_list', displayWith: (categorie: IKnwuWedstrijdCategorie) => categorie.naam, itemClick: (wedstrijd: IKnwuWedstrijd, categorie: IKnwuWedstrijdCategorie) => this.select(wedstrijd, categorie) })
     ];
 
     selectedWedstrijd: IKnwuWedstrijd;
@@ -49,9 +49,9 @@ export class KnwuWedstrijdAdministratie implements OnInit {
         }
     };
     deelnemerColumns: CleanTableColumn<IKnwuWedstrijdDeelnemer>[] = [
-        new CleanTableColumnText(deelnemer => deelnemer.startnummer, 'Nummer'),
-        new CleanTableColumnText(deelnemer => deelnemer.knwuId, 'KNWU-ID'),
-        new CleanTableColumnText(deelnemer => deelnemer.uciId, 'UCI-ID'),
+        textColumn(deelnemer => deelnemer.startnummer, 'Nummer'),
+        textColumn(deelnemer => deelnemer.knwuId, 'KNWU-ID'),
+        textColumn(deelnemer => deelnemer.uciId, 'UCI-ID'),
     ];
 
     ngOnInit(): void {
