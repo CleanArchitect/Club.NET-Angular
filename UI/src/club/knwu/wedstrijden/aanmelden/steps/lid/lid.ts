@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, inject, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +14,7 @@ import { IKnwuLid } from '../../models/wedstrijd';
     selector: 'knwu-wedstrijd-aanmelden-lid',
     templateUrl: 'lid.html',
     styleUrl: 'lid.scss',
-    imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatErrorErrors, ZXingScannerModule]
+    imports: [ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatErrorErrors, ZXingScannerModule]
 })
 export class KnwuWedstrijdAanmeldenLidStep implements OnDestroy {
     @ViewChild(ZXingScannerComponent) scanner: ZXingScannerComponent;

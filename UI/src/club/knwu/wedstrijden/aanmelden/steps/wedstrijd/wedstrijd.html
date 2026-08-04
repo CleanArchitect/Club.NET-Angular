@@ -1,18 +1,23 @@
 <mat-card [style.width.px]="300">
-    <mat-card-content class="wedstrijden">
-        <button class="wedstrijd option" mat-button [class.selected]="selectedWedstrijd === wedstrijd" (click)="selectedWedstrijd = wedstrijd" *ngFor="let wedstrijd of wedstrijden | async">{{ wedstrijd.naam }}</button>
-    </mat-card-content>
+  <mat-card-content class="wedstrijden">
+    @for (wedstrijd of wedstrijden | async; track wedstrijd) {
+      <button class="wedstrijd option" mat-button [class.selected]="selectedWedstrijd === wedstrijd" (click)="selectedWedstrijd = wedstrijd">{{ wedstrijd.naam }}</button>
+    }
+  </mat-card-content>
 </mat-card>
 
-<mat-card [style.width.px]="300" *ngIf="selectedWedstrijd">
+@if (selectedWedstrijd) {
+  <mat-card [style.width.px]="300">
     <mat-card-content class="categorieen">
-        <button class="categorie option" mat-button [class.selected]="selectedCategorie === categorie" (click)="selectedCategorie = categorie" *ngFor="let categorie of selectedWedstrijd.categorieen">{{ categorie.naam }}</button>
+      @for (categorie of selectedWedstrijd.categorieen; track categorie) {
+        <button class="categorie option" mat-button [class.selected]="selectedCategorie === categorie" (click)="selectedCategorie = categorie">{{ categorie.naam }}</button>
+      }
     </mat-card-content>
-
     <mat-card-actions class="actions">
-        <button mat-flat-button (click)="bevestigen()" [disabled]="!selectedWedstrijd || !selectedCategorie">
-            <mat-icon>check</mat-icon>
-            <span>Bevestigen</span>
-        </button>
+      <button mat-flat-button (click)="bevestigen()" [disabled]="!selectedWedstrijd || !selectedCategorie">
+        <mat-icon>check</mat-icon>
+        <span>Bevestigen</span>
+      </button>
     </mat-card-actions>
-</mat-card>
+  </mat-card>
+}

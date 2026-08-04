@@ -1,19 +1,18 @@
-<mat-card [style.width.px]="275" *ngIf="deelnemer">
+@if (deelnemer) {
+  <mat-card [style.width.px]="275">
     <mat-card-content class="deelnemer">
-        <div class="startnummer">
-            <h1>Startnummer</h1>
-
-            <span class="startnummer">{{ deelnemer.startnummer }}</span>
-        </div>
-
-        <button mat-button (click)="updateStartnummer()">
-            <mat-icon>refresh</mat-icon>
-            <span>Niet beschikbaar</span>
-        </button>
-
-        <button mat-flat-button (click)="afronden.emit()">
-            <mat-icon>check</mat-icon>
-            <span>Afronden</span>
-        </button>
+      <div class="startnummer">
+        <h1>Startnummer</h1>
+        <span class="startnummer">{{ deelnemer.startnummer }}</span>
+      </div>
+      <button mat-button (click)="updateStartnummer()">
+        <mat-icon>refresh</mat-icon>
+        <span>Niet beschikbaar</span>
+      </button>
+      <button mat-flat-button (click)="afronden.emit()">
+        <mat-icon>check</mat-icon>
+        <span>Afronden</span>
+      </button>
     </mat-card-content>
-</mat-card>
+  </mat-card>
+}

@@ -1,19 +1,25 @@
 <mat-stepper class="stepper no-header" linear #stepper>
-    <mat-step>
-        <div class="step-start">
-            <button class="btn-start" mat-flat-button (click)="started = true; stepper.next()">Aanmelden</button>
-        </div>
-    </mat-step>
+  <mat-step>
+    <div class="step-start">
+      <button class="btn-start" mat-flat-button (click)="started = true; stepper.next()">Aanmelden</button>
+    </div>
+  </mat-step>
 
-    <mat-step>
-        <knwu-wedstrijd-aanmelden-lid (annuleren)="reset(stepper);" (knwuLid)="knwuLid = $event; stepper.next()" *ngIf="started" />
-    </mat-step>
+  <mat-step>
+    @if (started) {
+      <knwu-wedstrijd-aanmelden-lid (annuleren)="reset(stepper);" (knwuLid)="knwuLid = $event; stepper.next()" />
+    }
+  </mat-step>
 
-    <mat-step>
-        <knwu-wedstrijd-aanmelden-wedstrijd [knwuLid]="knwuLid" (deelnemer)="deelnemer = $event; stepper.next()" *ngIf="knwuLid" />
-    </mat-step>
+  <mat-step>
+    @if (knwuLid) {
+      <knwu-wedstrijd-aanmelden-wedstrijd [knwuLid]="knwuLid" (deelnemer)="deelnemer = $event; stepper.next()" />
+    }
+  </mat-step>
 
-    <mat-step>
-        <knwu-wedstrijd-aanmelden-deelnemer [deelnemer]="deelnemer" (afronden)="reset(stepper);" *ngIf="deelnemer" />
-    </mat-step>
+  <mat-step>
+    @if (deelnemer) {
+      <knwu-wedstrijd-aanmelden-deelnemer [deelnemer]="deelnemer" (afronden)="reset(stepper);" />
+    }
+  </mat-step>
 </mat-stepper>

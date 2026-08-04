@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,7 @@ import { KnwuWedstrijdService } from '../../services/wedstrijd.service';
     templateUrl: 'toevoegen.html',
     styleUrl: 'toevoegen.scss',
     providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } as MatFormFieldDefaultOptions}],
-    imports: [CommonModule, ReactiveFormsModule, MatErrorErrors, MatFormFieldModule, MatDialogModule, MatInput, MatDatepickerModule, MatIconModule, MatButtonModule]
+    imports: [ReactiveFormsModule, MatErrorErrors, MatFormFieldModule, MatDialogModule, MatInput, MatDatepickerModule, MatIconModule, MatButtonModule]
 })
 export class KnwuWedstrijdToevoegen {
     @Output() toegevoegd = new EventEmitter<IKnwuWedstrijd>();

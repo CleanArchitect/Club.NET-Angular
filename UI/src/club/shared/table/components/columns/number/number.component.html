@@ -1,13 +1,15 @@
 @switch (column.style) {
-    @case ('progress') {
-        <mat-progress-bar [value]="column.value(rowElement)" mode="determinate"></mat-progress-bar>
+  @case ('progress') {
+    <mat-progress-bar [value]="column.value(rowElement)" mode="determinate"></mat-progress-bar>
+  }
+  @case ('rating') {
+    @for (star of column.toStars(rowElement); track star) {
+      <mat-icon class="clean-table-column-rating" [class.outlined]="star.outlined">
+        {{ star.icon }}
+      </mat-icon>
     }
-    @case ('rating') {
-        <mat-icon class="clean-table-column-rating" [class.outlined]="star.outlined" *ngFor="let star of column.toStars(rowElement)">
-            {{ star.icon }}
-        </mat-icon>
-    }
-    @default {
-        <span>{{ column.format(rowElement) }}</span>
-    }
+  }
+  @default {
+    <span>{{ column.format(rowElement) }}</span>
+  }
 }

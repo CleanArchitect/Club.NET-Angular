@@ -1,44 +1,60 @@
 @switch (column.style) {
-    @case ('commas') {
-        <div class="clean-column-array-commas">
-            <ng-container *ngFor="let item of column.value(rowElement); let last = last">
-                <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
-                <span *ngIf="!last">, </span> 
-            </ng-container>
+  @case ('commas') {
+    <div class="clean-column-array-commas">
+      @for (item of column.value(rowElement); track item; let last = $last) {
+        <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
+        @if (!last) {
+          <span>, </span>
+        }
+      }
+    </div>
+  }
+  @case ('multi-line') {
+    <div class="clean-column-array-lines">
+      @for (item of column.value(rowElement); track item) {
+        <div>
+          <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
         </div>
-    }
-    @case ('multi-line') {
-        <div class="clean-column-array-lines">
-            <div *ngFor="let item of column.value(rowElement)">
-                <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" /> 
-            </div>
-        </div>
-    }
-    @case ('bulleted') {
-        <ul class="clean-column-array-bulleted">
-            <li *ngFor="let item of column.value(rowElement)">
-                <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
-            </li>
-        </ul>
-    }
-    @case ('numbered') {
-        <ol class="clean-column-array-numbered">
-            <li *ngFor="let item of column.value(rowElement)">
-                <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
-            </li>
-        </ol>
-    }
-    @case ('chips') {
-        <mat-chip-set class="clean-column-array-chips">
-            <mat-chip [class.mdc-chip-link]="column.itemClick" (click)="column.itemClick ? column.itemClick(rowElement, item) : null" *ngFor="let item of column.value(rowElement)">
-                <mat-icon matChipAvatar *ngIf="column.bulletIcon">{{ column.bulletIcon }}</mat-icon>
-                <span>{{ column.displayWith(item) }}</span>
-            </mat-chip>
-        </mat-chip-set>
-    }
+      }
+    </div>
+  }
+  @case ('bulleted') {
+    <ul class="clean-column-array-bulleted">
+      @for (item of column.value(rowElement); track item) {
+        <li>
+          <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
+        </li>
+      }
+    </ul>
+  }
+  @case ('numbered') {
+    <ol class="clean-column-array-numbered">
+      @for (item of column.value(rowElement); track item) {
+        <li>
+          <ng-container *ngTemplateOutlet="itemDisplay; context: { $implicit: item }" />
+        </li>
+      }
+    </ol>
+  }
+  @case ('chips') {
+    <mat-chip-set class="clean-column-array-chips">
+      @for (item of column.value(rowElement); track item) {
+        <mat-chip [class.mdc-chip-link]="column.itemClick" (click)="column.itemClick ? column.itemClick(rowElement, item) : null">
+          @if (column.bulletIcon) {
+            <mat-icon matChipAvatar>{{ column.bulletIcon }}</mat-icon>
+          }
+          <span>{{ column.displayWith(item) }}</span>
+        </mat-chip>
+      }
+    </mat-chip-set>
+  }
 }
 
 <ng-template let-item #itemDisplay>
-    <span class="mdc-link" role="link" tabindex="0" (click)="column.itemClick(rowElement, item)" *ngIf="column.itemClick">{{ column.displayWith(item) }}</span>
-    <span *ngIf="!column.itemClick">{{ column.displayWith(item) }}</span>
+  @if (column.itemClick) {
+    <span class="mdc-link" role="link" tabindex="0" (click)="column.itemClick(rowElement, item)">{{ column.displayWith(item) }}</span>
+  }
+  @if (!column.itemClick) {
+    <span>{{ column.displayWith(item) }}</span>
+  }
 </ng-template>

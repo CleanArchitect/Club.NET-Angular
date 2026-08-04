@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { IKnwuWedstrijdDeelnemer } from '../../models/wedstrijd';
     selector: 'knwu-wedstrijd-aanmelden-deelnemer[deelnemer]',
     templateUrl: 'deelnemer.html',
     styleUrl: 'deelnemer.scss',
-    imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule]
+    imports: [MatCardModule, MatButtonModule, MatIconModule]
 })
 export class KnwuWedstrijdAanmeldenDeelnemerStep {
     @Input() deelnemer: IKnwuWedstrijdDeelnemer;

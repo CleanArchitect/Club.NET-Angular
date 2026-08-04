@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -9,6 +9,6 @@ import { CleanTableColumnComponent } from '../column.component';
     selector: 'clean-table-column-number',
     templateUrl: 'number.component.html',
     styleUrl: 'number.component.scss',
-    imports: [CommonModule, MatIconModule, MatProgressBarModule]
+    imports: [MatIconModule, MatProgressBarModule]
 })
 export class CleanTableColumnNumberComponent extends CleanTableColumnComponent<CleanTableColumnNumber<any>> { }

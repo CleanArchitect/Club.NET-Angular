@@ -1,5 +1,5 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
+
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
     styleUrl: 'club.scss',
     host: { class: 'club-portal' },
     encapsulation: ViewEncapsulation.None,
-    imports: [CommonModule, RouterModule, MatToolbarModule, MatButtonModule, MatIconModule, OverlayModule, MatMenuModule]
+    imports: [RouterModule, MatToolbarModule, MatButtonModule, MatIconModule, OverlayModule, MatMenuModule]
 })
 export class ClubComponent {
     // private builder = inject(CleanFormBuilder);

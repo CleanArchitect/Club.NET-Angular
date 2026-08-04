@@ -1,72 +1,69 @@
 <h1 mat-dialog-title>Wedstrijd toevoegen</h1>
 
 <mat-dialog-content>
-    <form [formGroup]="form">
-        <mat-form-field>
-            <mat-label>KNWU-wedstrijdnummer</mat-label>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>KNWU-wedstrijdnummer</mat-label>
 
-            <input matInput formControlName="knwuWedstrijdnummer" />
+      <input matInput formControlName="knwuWedstrijdnummer" />
 
-            <mat-error errors />
-        </mat-form-field>
+      <mat-error errors />
+    </mat-form-field>
 
-        <mat-form-field>
+    <mat-form-field>
+      <mat-label>Naam</mat-label>
+
+      <input matInput formControlName="naam" />
+
+      <mat-error errors />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Datum</mat-label>
+
+      <input matInput [matDatepicker]="picker" formControlName="datum" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-datepicker #picker />
+
+      <mat-error errors />
+    </mat-form-field>
+
+    <h3 class="titel">
+      <span>Categorieën</span>
+
+      <button mat-icon-button type="button" (click)="addCategorie()"><mat-icon>add</mat-icon></button>
+    </h3>
+
+    <ng-container formArrayName="categorieen">
+      @for (group of categorieen.controls; track group; let index = $index; let first = $first) {
+        <div class="categorie" [formGroupName]="index">
+          <mat-form-field class="field naam">
             <mat-label>Naam</mat-label>
-
             <input matInput formControlName="naam" />
-
+            @if (!first) {
+              <button mat-icon-button matSuffix type="button" (click)="removeCategorie(index)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            }
             <mat-error errors />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>Datum</mat-label>
-
-            <input matInput [matDatepicker]="picker" formControlName="datum" />
-
-            <mat-datepicker-toggle matIconSuffix [for]="picker" />
-            <mat-datepicker #picker />
-
-            <mat-error errors />
-        </mat-form-field>
-
-        <h3 class="titel">
-            <span>Categorieën</span>
-
-            <button mat-icon-button type="button" (click)="addCategorie()"><mat-icon>add</mat-icon></button>
-        </h3>
-
-        <ng-container formArrayName="categorieen">
-            <div class="categorie" [formGroupName]="index" *ngFor="let group of categorieen.controls; let index = index; let first = first">
-                <mat-form-field class="field naam">
-                    <mat-label>Naam</mat-label>
-
-                    <input matInput formControlName="naam" />
-
-                    <button mat-icon-button matSuffix type="button" (click)="removeCategorie(index)" *ngIf="!first">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-
-                    <mat-error errors />
-                </mat-form-field>
-
-                <mat-form-field class="field nummer">
-                    <mat-label>Begin</mat-label>
-
-                    <input matInput formControlName="startnummerBegin" />
-                </mat-form-field>
-
-                <mat-form-field class="field nummer">
-                    <mat-label>Eind</mat-label>
-
-                    <input matInput formControlName="startnummerEind" />
-                </mat-form-field>
-            </div>
-        </ng-container>
-    </form>
+          </mat-form-field>
+          <mat-form-field class="field nummer">
+            <mat-label>Begin</mat-label>
+            <input matInput formControlName="startnummerBegin" />
+          </mat-form-field>
+          <mat-form-field class="field nummer">
+            <mat-label>Eind</mat-label>
+            <input matInput formControlName="startnummerEind" />
+          </mat-form-field>
+        </div>
+      }
+    </ng-container>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-button mat-dialog-close type="button">Annuleren</button>
+  <button mat-button mat-dialog-close type="button">Annuleren</button>
 
-    <button mat-flat-button (click)="toevoegen()">Toevoegen</button>
+  <button mat-flat-button (click)="toevoegen()">Toevoegen</button>
 </mat-dialog-actions>

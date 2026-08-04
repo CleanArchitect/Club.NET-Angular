@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,7 @@ import { CleanTableColumn, ICleanTableConfig } from '../..';
     styleUrl: './configuration.component.scss',
     host: { 'class': 'clean-table-configuration'},
     encapsulation: ViewEncapsulation.None,
-    imports: [CommonModule, FormsModule, MatButtonModule, MatDividerModule, MatCardModule, MatIconModule, MatSlideToggleModule, MatListModule, CdkDrag, CdkDropList, CdkDragPlaceholder]
+    imports: [FormsModule, MatButtonModule, MatDividerModule, MatCardModule, MatIconModule, MatSlideToggleModule, MatListModule, CdkDrag, CdkDropList, CdkDragPlaceholder]
 })
 export class CleanTableConfigurationComponent {
     @Input() config: ICleanTableConfig;
