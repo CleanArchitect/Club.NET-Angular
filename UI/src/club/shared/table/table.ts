@@ -51,7 +51,7 @@ export class CleanTableComponent<TRowElement> implements OnInit, OnChanges, Afte
             .addSort(this.sort);
     }
 
-    configuration() {
+    configuration(): void {
         const overlayRef = this.overlay.create({
             positionStrategy: this.overlay.position()
                 .global()

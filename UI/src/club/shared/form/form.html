@@ -1,7 +1,11 @@
 <form [formGroup]="form">
-    <section *ngFor="let column of form.columns">
-        <fieldset *ngFor="let row of column.rows">
+    @for (column of form.columns; track $index) {
+    <section>
+        @for (row of column.rows; track $index) {
+        <fieldset>
             <ng-template [cleanFormField]="{ model: form.model, field: field }" *ngFor="let field of row" />
         </fieldset>
+        }
     </section>
+    }
 </form>

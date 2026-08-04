@@ -28,6 +28,10 @@
     //     margin: 16px;
     // }
 
+    .form {
+        padding: 16px;
+    }
+
     router-outlet + * {
         flex: 1;
     }
